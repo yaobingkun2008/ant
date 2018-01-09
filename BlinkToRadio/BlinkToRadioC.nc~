@@ -1,0 +1,301 @@
+#include <Timer.h>
+#include "BlinkToRadio.h"
+#include "printf.h"
+
+//接口是一组函数的集合，包括命令和事件
+module BlinkToRadioC @safe()
+{
+  uses interface Timer<TMilli> as Timer0;//发送报告电池电量的，开始以一个1000以内的随机数发送，之后每隔5s检测一次，假若出现大变动，就立即向邻居节点报告
+  uses interface Timer<TMilli> as TimerDebug;//用来显示队列中的情况
+  uses interface Timer<TMilli> as RetxmitTimer;//延迟机制计时器接口
+  uses interface Timer<TMilli> as MilliTimer;//用来周期性报告电量的计时器
+  uses interface Leds;//led灯接口
+  uses interface Boot;//启动接口
+  uses interface Packet;
+  uses interface AMPacket;//用于访问message_t类型的数据变量
+  uses interface AMSend as BeaconSend;//用于发送控制报文
+  uses interface Receive as BeaconReceive;//
+  uses interface SplitControl as AMControl;//用于初始化
+  uses interface Queue<control_queue_entry_t*> as SendQueue;//发送队列
+  uses interface Queue<control_queue_receive_t*> as ReceiveQueue;//接收队列
+  uses interface Random;
+}
+implementation
+{
+  routing_table_entry routing_table[15];//路由表
+  uint8_t tableactive;//路由表项
+  uint16_t battery;//电量
+  bool isrunning;
+  bool busy = FALSE;
+  message_t pkt;
+  uint8_t hellonum;
+  uint8_t chenggong = 0;
+  event void Boot.booted()//在这里初始化一切模块
+  {
+      call AMControl.start();//先启动一些模块
+  }
+
+  event void AMControl.startDone(error_t err)//初始化模块
+  {
+      if(err==SUCCESS){
+      	  tableactive = 0;//路由表项设置为0个
+      	  battery = 10000;//满电是10000
+      	  isrunning = TRUE;//表示是否位于休眠状态
+      	  hellonum = 0;
+
+      	  //其他要初始化的。。。。。。
+
+
+	  	  call Timer0.startOneShot(100);//开始后0.1s，先发送一个hello，此后每隔0.5秒发送一个，一共发送4个
+          call TimerDebug.startPeriodic(1000);
+          call MilliTimer.startPeriodic(4000);
+      }
+      else{
+	  	  call AMControl.start();//如果不成功，重新启动直到启动成功为止
+      }
+  }//自带了error_t类型的err变量，如果没有成功开启，就返回的err为SUCCESS
+   
+  event void AMControl.stopDone(error_t err){
+	
+  }
+
+  task void senddatatask(){
+	if(busy==TRUE)//如果busy等于true推迟一段时间，此次任务作废并且再重新提交任务，否则就发送
+	{
+		uint16_t r  = call Random.rand16();
+		r = r%10;
+		r = r+10;
+		call RetxmitTimer.startOneShot(r);
+        return;
+	}
+	else
+	{
+		control_queue_entry_t* pac_send = call SendQueue.head();
+		energymessage_t* btrpkt = NULL;
+        if(pac_send->classify==1)
+		{
+			printf("the class is energy\n");
+			btrpkt = (energymessage_t*)(call Packet.getPayload(&pkt,NULL));
+			btrpkt->energy = pac_send->e_message->energy;
+            if(call BeaconSend.send(AM_BROADCAST_ADDR,&pkt,sizeof(energymessage_t))==SUCCESS){//广播
+		     		busy = TRUE;
+		     		hellonum++;//发送的数量+1
+			}
+			else//发送不成功，重发
+			{
+		     		post senddatatask();
+			}
+
+		}
+		else if(pac_send->classify==2)//如果是前向蚂蚁
+		{
+
+
+			/*做一些处理。。。。。。*/
+			/*
+			else
+			{
+		     		post senddatatask();
+			}
+			*/
+
+		}
+		else if(pac_send->classify == 3)//如果是后向蚂蚁
+		{
+
+			/*做一些处理。。。。。。*/
+			/*
+			else
+			{
+		     		post senddatatask();
+			}
+			*/
+		}
+		else{
+			printf("wrong!\n");
+		}
+		
+		
+	}
+
+  }
+
+  uint8_t findinroutingtable(am_addr_t neighbor)
+  {
+  	uint8_t i;
+/*
+  	if(neighbor==INVALID_ADDR)//按照原版所说，这里可能有一些bug？
+  	{
+  		return tableactive;
+  	}
+*/
+  	for(i = 0;i<tableactive;i++)
+  	{
+  		if(routing_table[i].neighbor == neighbor)
+  		{
+  			break;
+  		}
+  	}
+  	return i;
+  }
+
+  task void Receivedatatask(){
+	uint8_t idx;
+  	control_queue_receive_t* pac_receive = call ReceiveQueue.head();
+  	if(pac_receive->classify==1)//第一种情况，收到的是电池广播包
+  	{
+  		am_addr_t hellofrom;//来源的邻居节点
+  		energymessage_t* a = (energymessage_t*)(pac_receive->payload);
+  		hellofrom = call AMPacket.source(pac_receive->message);
+		idx = findinroutingtable(hellofrom);
+  		if(idx == 15)//不能加入路由表，丢弃
+  		{
+  			call ReceiveQueue.dequeue();
+  			return;
+  		}
+  		else if(idx == tableactive){//没有找到，但是还有空间
+  			routing_table[idx].neighbor = hellofrom;
+  			routing_table[idx].enabled = TRUE;
+  			routing_table[idx].energy = a->energy;
+  			routing_table[idx].dest = 35;//汇聚节点为35
+  			routing_table[idx].phero = 100;//初始化信息素浓度
+  			tableactive++;
+  			call ReceiveQueue.dequeue();
+  			return;
+  		}
+  		else if(idx < tableactive){//找到了已经有的，更新之
+  			routing_table[idx].energy = a->energy;
+  			routing_table[idx].enabled = TRUE;
+  			if(routing_table[idx].energy < 1000)//能量小于百分之10，就可认为链路已失效。
+  			{
+  				routing_table[idx].enabled = FALSE;
+  				routing_table[idx].phero = 0;//信息素浓度设为0
+  			}
+  			call ReceiveQueue.dequeue();
+  			return;
+  		}
+
+
+
+  	}
+  	else if(pac_receive->classify==2)
+  	{
+
+
+  		//不明
+  	}
+  	else if(pac_receive->classify==3)
+  	{
+
+
+  		//不明
+  	}
+
+
+
+
+  }
+
+
+
+
+  event void RetxmitTimer.fired(){
+	post senddatatask();//重新提交任务,防止繁忙
+  }
+  
+  event void TimerDebug.fired()//打印队列长度
+  {
+	uint8_t i;
+      printf("the length of sendqueue is %u\n",call SendQueue.size());
+      printf("the success send packet num is %u\n",chenggong);
+      printf("the length of receivequeue is %u\n",call ReceiveQueue.size());
+      printf("the tableactive is %u\n",tableactive);
+      for(i=0;i<tableactive;i++)
+	{
+		
+		printf("[neighbor=%u,enabled = %u,energy=%u,dest=%u,phero=%u]\n",routing_table[i].neighbor,routing_table[i].enabled,routing_table[i].energy,routing_table[i].dest,routing_table[i].phero);
+
+	}
+  }
+  event void Timer0.fired()//发送电池的电量
+  {
+	control_queue_entry_t* new_packet = NULL;
+  	if(isrunning==TRUE)
+  	{
+  		if(hellonum<5)
+  		{
+  			call Timer0.startOneShot(500);
+    		//call Leds.set(hellonum);
+    		printf("battery is %u\n",battery);
+    		new_packet = (control_queue_entry_t*)malloc(sizeof(control_queue_entry_t));
+			new_packet->e_message = (energymessage_t*)malloc(sizeof(energymessage_t));
+			new_packet->e_message-> energy= battery;
+			new_packet->f_message=NULL;
+			new_packet->b_message = NULL;	
+			new_packet->classify = 1;
+			if(call SendQueue.enqueue(new_packet)==SUCCESS)//这里可能将会出现问题
+			{
+				post senddatatask();
+			}
+		}
+	}
+  }
+
+
+  event void BeaconSend.sendDone(message_t* msg,error_t error){
+	call SendQueue.dequeue();//发送成功之后再出队
+	battery = battery-5;
+    chenggong++;
+	busy = FALSE;	
+  }
+
+  event message_t* BeaconReceive.receive(message_t* msg,void* payload,uint8_t len)//接收，并执行任务
+  {
+	control_queue_receive_t* new_packet = NULL;
+       battery = battery-5;//收到消息，电量-5
+	   //printf("length is %u\n",len);
+       if(len == sizeof(energymessage_t))
+       {
+		   //energymessage_t* btrpkt = (energymessage_t*)payload;
+           printf("classify is energy_broadcast\n");
+           new_packet = (control_queue_receive_t*)malloc(sizeof(control_queue_receive_t));
+           new_packet->message = msg;
+           new_packet->payload = payload;
+           new_packet->classify = 1;
+           if(call ReceiveQueue.enqueue(new_packet)==SUCCESS)//这里可能将会出现问题
+		   {
+				post Receivedatatask();
+		   }
+	   }
+
+	   else if(len == sizeof(forwardant_t))
+	   {
+		   /*做处理*/
+	   }
+	   else if(len == sizeof(backwardant_t))
+	   {
+		    /*做处理*/
+	   }
+
+	   return msg;
+
+  }
+
+  event void MilliTimer.fired(){
+  	   if(isrunning == TRUE)
+  	   {
+  	   		control_queue_entry_t* new_packet = (control_queue_entry_t*)malloc(sizeof(control_queue_entry_t));
+			new_packet->e_message = (energymessage_t*)malloc(sizeof(energymessage_t));
+			new_packet->e_message-> energy= battery*100/10000;
+			new_packet->f_message=NULL;
+			new_packet->b_message = NULL;	
+			new_packet->classify = 1;
+			if(call SendQueue.enqueue(new_packet)==SUCCESS)//这里可能将会出现问题
+			{
+				post senddatatask();
+			}
+  	   }
+  }
+
+}
+
