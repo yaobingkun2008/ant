@@ -30,7 +30,7 @@ typedef struct {   //路由表
 } routing_table_entry;//路由表数据项
 
 typedef nx_struct energymessage_t {	//向周围邻居报告能量情形的结构体
-  nx_uint16_t energy;//能量点数
+  nx_uint8_t energy;//能量点数
 } energymessage_t;        
 
 typedef nx_struct { //前行蚂蚁

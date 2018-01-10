@@ -797,7 +797,7 @@ extern void *malloc(size_t __size) __attribute((__leaf__)) __attribute((__nothro
 #line 483
 extern void free(void *__ptr) __attribute((__leaf__)) __attribute((__nothrow__)) ;
 #line 742
-typedef int (*__compar_fn_t)(const void *arg_0x2aee9b231cf8, const void *arg_0x2aee9b230020);
+typedef int (*__compar_fn_t)(const void *arg_0x2b95b25a1cf8, const void *arg_0x2b95b25a0020);
 #line 780
 __extension__ 
 #line 797
@@ -815,7 +815,7 @@ extern double sqrt(double __x) __attribute((__leaf__)) __attribute((__nothrow__)
 #line 184
 extern double floor(double __x) __attribute((__leaf__)) __attribute((__nothrow__)) __attribute((const)) ;
 #line 250
-extern double erfc(double arg_0x2aee9b2b2618) __attribute((__leaf__)) __attribute((__nothrow__)) ;
+extern double erfc(double arg_0x2b95b2622618) __attribute((__leaf__)) __attribute((__nothrow__)) ;
 #line 326
 __extension__ 
 
@@ -1215,8 +1215,8 @@ typedef struct hashtable hashtable_t;
 #line 78
 struct hashtable *
 create_hashtable(unsigned int minsize, 
-unsigned int (*hashfunction)(void *arg_0x2aee9b4f38e8), 
-int (*key_eq_fn)(void *arg_0x2aee9b4f20c8, void *arg_0x2aee9b4f2368));
+unsigned int (*hashfunction)(void *arg_0x2b95b28638e8), 
+int (*key_eq_fn)(void *arg_0x2b95b28620c8, void *arg_0x2b95b2862368));
 #line 103
 #line 102
 int 
@@ -1252,7 +1252,7 @@ typedef struct sim_log_channel {
 } sim_log_channel_t;
 
 enum __nesc_unnamed4272 {
-  SIM_LOG_OUTPUT_COUNT = 233U
+  SIM_LOG_OUTPUT_COUNT = 234U
 };
 
 sim_log_output_t outputs[SIM_LOG_OUTPUT_COUNT];
@@ -1829,7 +1829,7 @@ struct tm;
 
 struct tm;
 # 46 "/opt/tinyos-2.1.2/tos/lib/tossim/randomlib.h"
-static inline void RandomInitialise(int arg_0x2aee9b703610, int arg_0x2aee9b703878);
+static inline void RandomInitialise(int arg_0x2b95b2a73610, int arg_0x2b95b2a73878);
 static double RandomUniform(void );
 # 51 "/opt/tinyos-2.1.2/tos/lib/tossim/sim_noise.c"
 int numCase1 = 0;
@@ -2229,7 +2229,7 @@ typedef struct __nesc_unnamed4285 {
 
 #line 32
 typedef nx_struct energymessage_t {
-  nx_uint16_t energy;
+  nx_uint8_t energy;
 } __attribute__((packed)) energymessage_t;
 
 
@@ -3737,7 +3737,7 @@ typedef uint16_t RandomMlcgC$SeedInit$parameter;
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static error_t TossimActiveMessageC$AMSend$send(
 # 47 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2aee9b869528, 
+am_id_t arg_0x2b95b2bd9528, 
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 am_addr_t addr, 
 #line 71
@@ -3760,7 +3760,7 @@ message_t *
 
 TossimActiveMessageC$Snoop$default$receive(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2aee9b88c2f0, 
+am_id_t arg_0x2b95b2bfc2f0, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -3807,7 +3807,7 @@ message_t *
 
 TossimActiveMessageC$Receive$default$receive(
 # 48 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2aee9b88d780, 
+am_id_t arg_0x2b95b2bfd780, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -3944,11 +3944,11 @@ static error_t MeasureClockC$Init$init(void );
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static error_t SimSchedulerBasicP$TaskBasic$postTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2aee9b804020);
+uint8_t arg_0x2b95b2b74020);
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static void SimSchedulerBasicP$TaskBasic$default$runTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2aee9b804020);
+uint8_t arg_0x2b95b2b74020);
 # 57 "/opt/tinyos-2.1.2/tos/interfaces/Scheduler.nc"
 static void SimSchedulerBasicP$Scheduler$init(void );
 
@@ -3999,7 +3999,7 @@ error_t error);
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$sendDone(
 # 48 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-am_id_t arg_0x2aee9bd14488, 
+am_id_t arg_0x2b95b3084488, 
 # 103 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 message_t * msg, 
 
@@ -4012,7 +4012,7 @@ error_t error);
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$send(
 # 46 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-uint8_t arg_0x2aee9bd15318, 
+uint8_t arg_0x2b95b3085318, 
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -4026,7 +4026,7 @@ uint8_t len);
 #line 100
 static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone(
 # 46 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-uint8_t arg_0x2aee9bd15318, 
+uint8_t arg_0x2b95b3085318, 
 # 96 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -4151,11 +4151,11 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$fire
 #line 83
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2aee9c0d6c28);
+uint8_t arg_0x2b95b3469c28);
 # 73 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startOneShot(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2aee9c0d6c28, 
+uint8_t arg_0x2b95b3469c28, 
 # 73 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 uint32_t dt);
 # 82 "/opt/tinyos-2.1.2/tos/lib/timer/Counter.nc"
@@ -4239,7 +4239,7 @@ static am_addr_t TossimActiveMessageC$amAddress(void );
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static void TossimActiveMessageC$AMSend$sendDone(
 # 47 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2aee9b869528, 
+am_id_t arg_0x2b95b2bd9528, 
 # 103 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 message_t * msg, 
 
@@ -4258,7 +4258,7 @@ message_t *
 
 TossimActiveMessageC$Snoop$receive(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2aee9b88c2f0, 
+am_id_t arg_0x2b95b2bfc2f0, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -4277,7 +4277,7 @@ message_t *
 
 TossimActiveMessageC$Receive$receive(
 # 48 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2aee9b88d780, 
+am_id_t arg_0x2b95b2bfd780, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -4724,7 +4724,7 @@ int sim_main_start_mote(void )   ;
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static void SimSchedulerBasicP$TaskBasic$runTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2aee9b804020);
+uint8_t arg_0x2b95b2b74020);
 
 
 
@@ -4943,7 +4943,7 @@ static inline void /*BlinkToRadioAppC.SendControl.SenderC.AMQueueEntryP*/AMQueue
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$send(
 # 48 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-am_id_t arg_0x2aee9bd14488, 
+am_id_t arg_0x2b95b3084488, 
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 am_addr_t addr, 
 #line 71
@@ -4960,7 +4960,7 @@ uint8_t len);
 # 100 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(
 # 46 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-uint8_t arg_0x2aee9bd15318, 
+uint8_t arg_0x2b95b3085318, 
 # 96 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -5137,19 +5137,19 @@ static am_addr_t BlinkToRadioC$AMPacket$source(
 message_t * amsg);
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static error_t BlinkToRadioC$Receivedatatask$postTask(void );
-# 133 "BlinkToRadioC.nc"
+# 270 "BlinkToRadioC.nc"
 enum BlinkToRadioC$__nesc_unnamed4342 {
-#line 133
+#line 270
   BlinkToRadioC$senddatatask = 5U
 };
-#line 133
+#line 270
 typedef int BlinkToRadioC$__nesc_sillytask_senddatatask[BlinkToRadioC$senddatatask];
-#line 316
+#line 474
 enum BlinkToRadioC$__nesc_unnamed4343 {
-#line 316
+#line 474
   BlinkToRadioC$Receivedatatask = 6U
 };
-#line 316
+#line 474
 typedef int BlinkToRadioC$__nesc_sillytask_Receivedatatask[BlinkToRadioC$Receivedatatask];
 #line 26
 routing_table_entry BlinkToRadioC$routing_table[1000][15];
@@ -5168,30 +5168,38 @@ uint8_t BlinkToRadioC$flag[1000];
 uint8_t BlinkToRadioC$receiveantnum[1000];
 uint8_t BlinkToRadioC$sendnum[1000];
 uint8_t BlinkToRadioC$testnum[1000];
+uint8_t BlinkToRadioC$battery_level[1000];
 
 bool BlinkToRadioC$receiving[1000];
 static inline bool BlinkToRadioC$is_destable(void );
-#line 58
+#line 59
 static inline void BlinkToRadioC$Boot$booted(void );
 
 
 
 
 static inline void BlinkToRadioC$AMControl$startDone(error_t err);
-#line 89
+#line 91
 static inline void BlinkToRadioC$AMControl$stopDone(error_t err);
 
 
+
+
+
+static uint8_t BlinkToRadioC$check_battery_change(void );
+#line 229
 static inline bool BlinkToRadioC$findin(uint8_t ttl, uint8_t visited[12], uint8_t neighbor);
-#line 107
+#line 244
 static inline am_addr_t BlinkToRadioC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE_TIME], uint16_t destin);
-#line 133
+#line 270
 static inline void BlinkToRadioC$senddatatask$runTask(void );
-#line 297
+#line 433
+static void BlinkToRadioC$send_battery_info(void );
+#line 455
 static inline uint8_t BlinkToRadioC$findinroutingtable(am_addr_t neighbor);
-#line 316
+#line 474
 static inline void BlinkToRadioC$Receivedatatask$runTask(void );
-#line 462
+#line 624
 static inline void BlinkToRadioC$RetxmitTimer$fired(void );
 
 
@@ -5200,14 +5208,17 @@ static inline void BlinkToRadioC$RetxmitTimer$fired(void );
 
 
 static inline void BlinkToRadioC$TimerDebug$fired(void );
-#line 495
+#line 657
 static inline void BlinkToRadioC$Timer1$fired(void );
-#line 532
+#line 694
 static void BlinkToRadioC$BeaconSend$sendDone(message_t *msg, error_t error);
-#line 637
-static inline message_t *BlinkToRadioC$BeaconReceive$receive(message_t *msg, void *payload, uint8_t len);
-#line 698
+#line 793
 static inline void BlinkToRadioC$MilliTimer$fired(void );
+
+
+
+
+static inline message_t *BlinkToRadioC$BeaconReceive$receive(message_t *msg, void *payload, uint8_t len);
 # 53 "/opt/tinyos-2.1.2/tos/chips/atm128/timer/HplAtm128TimerCtrl8.nc"
 static Atm128_TIFR_t /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$TimerCtrl$getInterruptFlag(void );
 #line 46
@@ -5530,7 +5541,7 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$stop
 
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2aee9c0d6c28);
+uint8_t arg_0x2b95b3469c28);
 #line 71
 enum /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$__nesc_unnamed4346 {
 #line 71
@@ -6075,18 +6086,22 @@ inline static error_t BlinkToRadioC$ReceiveQueue$enqueue(BlinkToRadioC$ReceiveQu
 #line 90
 }
 #line 90
-# 637 "BlinkToRadioC.nc"
+# 798 "BlinkToRadioC.nc"
 static inline message_t *BlinkToRadioC$BeaconReceive$receive(message_t *msg, void *payload, uint8_t len)
 {
   BlinkToRadioC$receiving[sim_node()] = TRUE;
+
   { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 640
+#line 802
     {
 
       control_queue_receive_t *new_packet = (void *)0;
 
-#line 643
       BlinkToRadioC$battery[sim_node()] = BlinkToRadioC$battery[sim_node()] - 5;
+      if (BlinkToRadioC$check_battery_change() != 1) 
+        {
+          BlinkToRadioC$send_battery_info();
+        }
       if (len == sizeof(energymessage_t )) 
         {
           new_packet = (control_queue_receive_t *)malloc(sizeof(control_queue_receive_t ));
@@ -6098,23 +6113,23 @@ static inline message_t *BlinkToRadioC$BeaconReceive$receive(message_t *msg, voi
 
               if (BlinkToRadioC$Receivedatatask$postTask() != SUCCESS) 
                 {
-                  sim_log_debug(183U, "Test1", "gg!\n");
+                  sim_log_debug(186U, "Test1", "gg!\n");
                 }
             }
           else 
             {
-              sim_log_debug(184U, "Test1", "shit!");
+              sim_log_debug(187U, "Test1", "shit!");
             }
           BlinkToRadioC$receiving[sim_node()] = FALSE;
         }
       else {
-#line 664
+#line 831
         if (len == sizeof(forwardant_t )) 
           {
             if (TOS_NODE_ID == 1 || TOS_NODE_ID == 2) 
               {
                 BlinkToRadioC$receiveantnum[sim_node()]++;
-                sim_log_debug(185U, "Test1", "NODE %u receive forward ant %u\n", TOS_NODE_ID, BlinkToRadioC$receiveantnum[sim_node()]);
+                sim_log_debug(188U, "Test1", "NODE %u receive forward ant %u\n", TOS_NODE_ID, BlinkToRadioC$receiveantnum[sim_node()]);
               }
             new_packet = (control_queue_receive_t *)malloc(sizeof(control_queue_receive_t ));
             new_packet->message = msg;
@@ -6124,12 +6139,12 @@ static inline message_t *BlinkToRadioC$BeaconReceive$receive(message_t *msg, voi
               {
                 if (BlinkToRadioC$Receivedatatask$postTask() != SUCCESS) 
                   {
-                    sim_log_debug(186U, "Test1", "gg!\n");
+                    sim_log_debug(189U, "Test1", "gg!\n");
                   }
               }
             else 
               {
-                sim_log_debug(187U, "Test1", "shit!\n");
+                sim_log_debug(190U, "Test1", "shit!\n");
               }
             BlinkToRadioC$receiving[sim_node()] = FALSE;
           }
@@ -6141,18 +6156,18 @@ static inline message_t *BlinkToRadioC$BeaconReceive$receive(message_t *msg, voi
         }
       {
         nx_struct message_t *__nesc_temp = 
-#line 694
+#line 861
         msg;
 
         {
-#line 694
+#line 861
           __nesc_atomic_end(__nesc_atomic); 
-#line 694
+#line 861
           return __nesc_temp;
         }
       }
     }
-#line 697
+#line 864
     __nesc_atomic_end(__nesc_atomic); }
 }
 
@@ -6164,13 +6179,13 @@ static inline message_t *TossimActiveMessageC$Receive$default$receive(am_id_t id
 }
 
 # 78 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
-inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2aee9b88d780, message_t * msg, void * payload, uint8_t len){
+inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2b95b2bfd780, message_t * msg, void * payload, uint8_t len){
 #line 78
   nx_struct message_t *__nesc_result;
 #line 78
 
 #line 78
-  switch (arg_0x2aee9b88d780) {
+  switch (arg_0x2b95b2bfd780) {
 #line 78
     case 6:
 #line 78
@@ -6180,7 +6195,7 @@ inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2ae
 #line 78
     default:
 #line 78
-      __nesc_result = TossimActiveMessageC$Receive$default$receive(arg_0x2aee9b88d780, msg, payload, len);
+      __nesc_result = TossimActiveMessageC$Receive$default$receive(arg_0x2b95b2bfd780, msg, payload, len);
 #line 78
       break;
 #line 78
@@ -6193,13 +6208,13 @@ inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2ae
 }
 #line 78
 # 57 "/opt/tinyos-2.1.2/tos/system/QueueC.nc"
-static inline uint8_t /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$size(void )
+static inline uint8_t /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$size(void )
 #line 57
 {
-  return /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()];
+  return /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()];
 }
 
-static inline uint8_t /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$maxSize(void )
+static inline uint8_t /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$maxSize(void )
 #line 61
 {
   return 20;
@@ -6241,6 +6256,19 @@ static inline int SimSchedulerBasicP$sim_config_task_latency(void )
   return 100;
 }
 
+# 57 "/opt/tinyos-2.1.2/tos/system/QueueC.nc"
+static inline uint8_t /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$size(void )
+#line 57
+{
+  return /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()];
+}
+
+static inline uint8_t /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$maxSize(void )
+#line 61
+{
+  return 20;
+}
+
 # 216 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
 static inline message_t *TossimActiveMessageC$Snoop$default$receive(am_id_t id, message_t *msg, void *payload, uint8_t len)
 #line 216
@@ -6249,13 +6277,13 @@ static inline message_t *TossimActiveMessageC$Snoop$default$receive(am_id_t id, 
 }
 
 # 78 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
-inline static message_t * TossimActiveMessageC$Snoop$receive(am_id_t arg_0x2aee9b88c2f0, message_t * msg, void * payload, uint8_t len){
+inline static message_t * TossimActiveMessageC$Snoop$receive(am_id_t arg_0x2b95b2bfc2f0, message_t * msg, void * payload, uint8_t len){
 #line 78
   nx_struct message_t *__nesc_result;
 #line 78
 
 #line 78
-    __nesc_result = TossimActiveMessageC$Snoop$default$receive(arg_0x2aee9b88c2f0, msg, payload, len);
+    __nesc_result = TossimActiveMessageC$Snoop$default$receive(arg_0x2b95b2bfc2f0, msg, payload, len);
 #line 78
 
 #line 78
@@ -6398,11 +6426,12 @@ inline static void BlinkToRadioC$Timer1$startOneShot(uint32_t dt){
 #line 73
 }
 #line 73
-# 63 "BlinkToRadioC.nc"
+# 64 "BlinkToRadioC.nc"
 static inline void BlinkToRadioC$AMControl$startDone(error_t err)
 {
   if (err == SUCCESS) {
       BlinkToRadioC$post_fail[sim_node()] = 0;
+      BlinkToRadioC$battery_level[sim_node()] = 10;
       BlinkToRadioC$tableactive[sim_node()] = 0;
       BlinkToRadioC$battery[sim_node()] = 10000;
       BlinkToRadioC$isrunning[sim_node()] = TRUE;
@@ -6440,9 +6469,9 @@ static inline void TossimPacketModelC$startDoneTask$runTask(void )
   TossimPacketModelC$Control$startDone(SUCCESS);
 }
 
-# 89 "BlinkToRadioC.nc"
+# 91 "BlinkToRadioC.nc"
 static inline void BlinkToRadioC$AMControl$stopDone(error_t err)
-#line 89
+#line 91
 {
 }
 
@@ -6495,9 +6524,9 @@ static __inline  int8_t __nesc_hton_int8(void * target, int8_t value)
 }
 
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
-inline static void TossimActiveMessageC$AMSend$sendDone(am_id_t arg_0x2aee9b869528, message_t * msg, error_t error){
+inline static void TossimActiveMessageC$AMSend$sendDone(am_id_t arg_0x2b95b2bd9528, message_t * msg, error_t error){
 #line 110
-  /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$sendDone(arg_0x2aee9b869528, msg, error);
+  /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$sendDone(arg_0x2b95b2bd9528, msg, error);
 #line 110
 }
 #line 110
@@ -6558,9 +6587,9 @@ static inline void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone
 }
 
 # 100 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
-inline static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(uint8_t arg_0x2aee9bd15318, message_t * msg, error_t error){
+inline static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(uint8_t arg_0x2b95b3085318, message_t * msg, error_t error){
 #line 100
-  switch (arg_0x2aee9bd15318) {
+  switch (arg_0x2b95b3085318) {
 #line 100
     case 0U:
 #line 100
@@ -6570,7 +6599,7 @@ inline static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(uint8_t
 #line 100
     default:
 #line 100
-      /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone(arg_0x2aee9bd15318, msg, error);
+      /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone(arg_0x2b95b3085318, msg, error);
 #line 100
       break;
 #line 100
@@ -6688,13 +6717,13 @@ inline static BlinkToRadioC$SendQueue$t  BlinkToRadioC$SendQueue$dequeue(void ){
 #line 81
 }
 #line 81
-# 92 "BlinkToRadioC.nc"
+# 229 "BlinkToRadioC.nc"
 static inline bool BlinkToRadioC$findin(uint8_t ttl, uint8_t visited[12], uint8_t neighbor)
 {
   bool isin = FALSE;
   int k;
 
-#line 96
+#line 233
   for (k = 0; k < 12 - ttl; k++) 
     {
       if (visited[k] == neighbor) 
@@ -6707,14 +6736,14 @@ static inline bool BlinkToRadioC$findin(uint8_t ttl, uint8_t visited[12], uint8_
   return isin;
 }
 
-#line 107
+#line 244
 static inline am_addr_t BlinkToRadioC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE_TIME], uint16_t destin)
 {
   uint16_t biggest = 99;
   uint32_t bignum = 0;
   uint8_t k;
 
-#line 112
+#line 249
   for (k = 0; k < BlinkToRadioC$tableactive[sim_node()]; k++) 
     {
       if (BlinkToRadioC$routing_table[sim_node()][k].enabled == TRUE) 
@@ -6725,7 +6754,7 @@ static inline am_addr_t BlinkToRadioC$find_next_hop(uint8_t ttl, uint8_t visited
                 {
                   uint32_t c = BlinkToRadioC$routing_table[sim_node()][k].energy * BlinkToRadioC$routing_table[sim_node()][k].phero;
 
-#line 121
+#line 258
                   if (c > bignum) 
                     {
                       bignum = c;
@@ -6738,12 +6767,12 @@ static inline am_addr_t BlinkToRadioC$find_next_hop(uint8_t ttl, uint8_t visited
   return biggest;
 }
 
-#line 44
+#line 45
 static inline bool BlinkToRadioC$is_destable(void )
 {
   uint8_t i;
 
-#line 47
+#line 48
   for (i = 0; i < BlinkToRadioC$tableactive[sim_node()]; i++) 
     {
       if (BlinkToRadioC$routing_table[sim_node()][i].neighbor == DEST_NODE && BlinkToRadioC$routing_table[sim_node()][i].enabled == TRUE) 
@@ -6832,19 +6861,19 @@ inline static uint16_t BlinkToRadioC$Random$rand16(void ){
 #line 52
 }
 #line 52
-# 133 "BlinkToRadioC.nc"
+# 270 "BlinkToRadioC.nc"
 static inline void BlinkToRadioC$senddatatask$runTask(void )
-#line 133
+#line 270
 {
 
   uint8_t k = 0;
 
-#line 136
+#line 273
   if (BlinkToRadioC$busy[sim_node()] == TRUE || BlinkToRadioC$receiving[sim_node()] == TRUE) 
     {
       uint16_t r = BlinkToRadioC$Random$rand16();
 
-#line 139
+#line 276
       r = r % 10;
       r = r + 10;
       sim_log_debug(163U, "Test1", "busy!\n");
@@ -6859,14 +6888,14 @@ static inline void BlinkToRadioC$senddatatask$runTask(void )
       forwardant_t *btrpkt2 = (void *)0;
       backwardant_t *btrpkt3 = (void *)0;
 
-#line 152
+#line 289
       if (pac_send != (void *)0) 
         {
           if (pac_send->classify == 1) 
             {
 
               btrpkt = (energymessage_t *)BlinkToRadioC$Packet$getPayload(&BlinkToRadioC$pkt[sim_node()], (void *)0);
-              __nesc_hton_uint16(btrpkt->energy.nxdata, __nesc_ntoh_uint16(pac_send->e_message->energy.nxdata));
+              __nesc_hton_uint8(btrpkt->energy.nxdata, __nesc_ntoh_uint8(pac_send->e_message->energy.nxdata));
 
 
 
@@ -6880,7 +6909,6 @@ static inline void BlinkToRadioC$senddatatask$runTask(void )
                   BlinkToRadioC$busy[sim_node()] = TRUE;
                 }
               else 
-
                 {
                   sim_log_debug(164U, "Test1", "send failed!\n");
                   if (BlinkToRadioC$senddatatask$postTask() != SUCCESS) 
@@ -6891,7 +6919,7 @@ static inline void BlinkToRadioC$senddatatask$runTask(void )
               return;
             }
           else {
-#line 182
+#line 318
             if (pac_send->classify == 2) 
               {
 
@@ -7002,7 +7030,7 @@ static inline void BlinkToRadioC$senddatatask$runTask(void )
             }
         }
       else 
-#line 290
+#line 426
         {
           return;
         }
@@ -7047,7 +7075,7 @@ inline static error_t BlinkToRadioC$SendQueue$enqueue(BlinkToRadioC$SendQueue$t 
 #line 90
 }
 #line 90
-# 297 "BlinkToRadioC.nc"
+# 455 "BlinkToRadioC.nc"
 static inline uint8_t BlinkToRadioC$findinroutingtable(am_addr_t neighbor)
 {
   uint8_t i;
@@ -7121,19 +7149,19 @@ inline static BlinkToRadioC$ReceiveQueue$t  BlinkToRadioC$ReceiveQueue$head(void
 #line 73
 }
 #line 73
-# 316 "BlinkToRadioC.nc"
+# 474 "BlinkToRadioC.nc"
 static inline void BlinkToRadioC$Receivedatatask$runTask(void )
-#line 316
+#line 474
 {
 
   uint8_t idx;
   uint8_t k;
   control_queue_receive_t *pac_receive = BlinkToRadioC$ReceiveQueue$head();
 
-#line 321
+#line 479
   if (BlinkToRadioC$receiving[sim_node()] == TRUE) 
     {
-      sim_log_debug(172U, "Test1", "receiving busy!\n");
+      sim_log_debug(174U, "Test1", "receiving busy!\n");
       BlinkToRadioC$Receivedatatask$postTask();
       return;
     }
@@ -7144,7 +7172,7 @@ static inline void BlinkToRadioC$Receivedatatask$runTask(void )
       am_addr_t hellofrom;
       energymessage_t *a = (energymessage_t *)pac_receive->payload;
 
-#line 333
+#line 491
       hellofrom = BlinkToRadioC$AMPacket$source(pac_receive->message);
       idx = BlinkToRadioC$findinroutingtable(hellofrom);
       if (idx == 15) 
@@ -7153,11 +7181,11 @@ static inline void BlinkToRadioC$Receivedatatask$runTask(void )
           return;
         }
       else {
-#line 340
+#line 498
         if (idx == BlinkToRadioC$tableactive[sim_node()]) {
             BlinkToRadioC$routing_table[sim_node()][idx].neighbor = hellofrom;
             BlinkToRadioC$routing_table[sim_node()][idx].enabled = TRUE;
-            BlinkToRadioC$routing_table[sim_node()][idx].energy = __nesc_ntoh_uint16(a->energy.nxdata);
+            BlinkToRadioC$routing_table[sim_node()][idx].energy = __nesc_ntoh_uint8(a->energy.nxdata);
             BlinkToRadioC$routing_table[sim_node()][idx].dest = DEST_NODE;
             BlinkToRadioC$routing_table[sim_node()][idx].phero = 100;
             BlinkToRadioC$tableactive[sim_node()]++;
@@ -7165,15 +7193,23 @@ static inline void BlinkToRadioC$Receivedatatask$runTask(void )
             return;
           }
         else {
-#line 350
+#line 508
           if (idx < BlinkToRadioC$tableactive[sim_node()]) {
-              BlinkToRadioC$routing_table[sim_node()][idx].energy = __nesc_ntoh_uint16(a->energy.nxdata);
-              BlinkToRadioC$routing_table[sim_node()][idx].enabled = TRUE;
-              if (BlinkToRadioC$routing_table[sim_node()][idx].energy < 1000) 
+              BlinkToRadioC$routing_table[sim_node()][idx].energy = __nesc_ntoh_uint8(a->energy.nxdata);
+              if (BlinkToRadioC$routing_table[sim_node()][idx].enabled == TRUE && BlinkToRadioC$routing_table[sim_node()][idx].energy == 2) 
                 {
                   BlinkToRadioC$routing_table[sim_node()][idx].enabled = FALSE;
                   BlinkToRadioC$routing_table[sim_node()][idx].phero = 0;
                 }
+              else {
+#line 515
+                if (BlinkToRadioC$routing_table[sim_node()][idx].enabled == FALSE && BlinkToRadioC$routing_table[sim_node()][idx].energy > 2) 
+                  {
+                    BlinkToRadioC$routing_table[sim_node()][idx].enabled = TRUE;
+                    BlinkToRadioC$routing_table[sim_node()][idx].phero = 100;
+                  }
+                }
+#line 520
               BlinkToRadioC$ReceiveQueue$dequeue();
               return;
             }
@@ -7181,7 +7217,7 @@ static inline void BlinkToRadioC$Receivedatatask$runTask(void )
         }
     }
   else {
-#line 362
+#line 524
     if (pac_receive->classify == 2) 
       {
 
@@ -7197,13 +7233,13 @@ static inline void BlinkToRadioC$Receivedatatask$runTask(void )
           {
             uint8_t u = -1;
 
-#line 376
+#line 538
             if (TOS_NODE_ID == __nesc_ntoh_uint16(a->dest.nxdata)) 
               {
                 BlinkToRadioC$testnum[sim_node()]++;
-                sim_log_debug(173U, "Test1", "ARRIVED AT SINK NODE! @ %u.%u\n", __nesc_ntoh_uint16(a->visit[0].nxdata), __nesc_ntoh_uint8(a->seqno.nxdata));
-                sim_log_debug(174U, "Test1", "3 receive %u\n", BlinkToRadioC$testnum[sim_node()]);
-#line 408
+                sim_log_debug(175U, "Test1", "ARRIVED AT SINK NODE! @ %u.%u\n", __nesc_ntoh_uint16(a->visit[0].nxdata), __nesc_ntoh_uint8(a->seqno.nxdata));
+                sim_log_debug(176U, "Test1", "3 receive %u\n", BlinkToRadioC$testnum[sim_node()]);
+#line 570
                 BlinkToRadioC$ReceiveQueue$dequeue();
                 return;
               }
@@ -7228,14 +7264,14 @@ static inline void BlinkToRadioC$Receivedatatask$runTask(void )
                   {
                     if (BlinkToRadioC$senddatatask$postTask() != SUCCESS) 
                       {
-                        sim_log_debug(175U, "Test1", "gg!\n");
+                        sim_log_debug(177U, "Test1", "gg!\n");
                       }
                     BlinkToRadioC$ReceiveQueue$dequeue();
                     return;
                   }
                 else 
                   {
-                    sim_log_debug(176U, "Test1", "shit!");
+                    sim_log_debug(178U, "Test1", "shit!");
                   }
               }
           }
@@ -7514,9 +7550,9 @@ static inline void SimSchedulerBasicP$TaskBasic$default$runTask(uint8_t id)
 }
 
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
-inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2aee9b804020){
+inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b95b2b74020){
 #line 75
-  switch (arg_0x2aee9b804020) {
+  switch (arg_0x2b95b2b74020) {
 #line 75
     case TossimPacketModelC$startDoneTask:
 #line 75
@@ -7586,7 +7622,7 @@ inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2aee9b8040
 #line 75
     default:
 #line 75
-      SimSchedulerBasicP$TaskBasic$default$runTask(arg_0x2aee9b804020);
+      SimSchedulerBasicP$TaskBasic$default$runTask(arg_0x2b95b2b74020);
 #line 75
       break;
 #line 75
@@ -7632,12 +7668,13 @@ inline static Atm128_TIFR_t /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAs
 #line 53
 }
 #line 53
-# 469 "BlinkToRadioC.nc"
+# 631 "BlinkToRadioC.nc"
 static inline void BlinkToRadioC$TimerDebug$fired(void )
 {
   uint8_t i;
 
-#line 485
+#line 646
+  sim_log_debug(180U, "Test1", "the tableactive is %u @%u\n", BlinkToRadioC$tableactive[sim_node()], TOS_NODE_ID);
   if (TOS_NODE_ID == DEST_NODE) 
     {
     }
@@ -7647,50 +7684,24 @@ static inline void BlinkToRadioC$TimerDebug$fired(void )
     }
 }
 
-#line 462
+#line 624
 static inline void BlinkToRadioC$RetxmitTimer$fired(void )
-#line 462
+#line 624
 {
   if (BlinkToRadioC$senddatatask$postTask() != SUCCESS) 
     {
-      sim_log_debug(177U, "Test1", "gg!\n");
+      sim_log_debug(179U, "Test1", "gg!\n");
     }
 }
 
-#line 698
+#line 793
 static inline void BlinkToRadioC$MilliTimer$fired(void )
-#line 698
 {
 
-
-  if (BlinkToRadioC$isrunning[sim_node()] == TRUE && BlinkToRadioC$receiving[sim_node()] == FALSE) 
-    {
-
-      control_queue_entry_t *new_packet = (control_queue_entry_t *)malloc(sizeof(control_queue_entry_t ));
-
-#line 705
-      new_packet->e_message = (energymessage_t *)malloc(sizeof(energymessage_t ));
-      __nesc_hton_uint16(new_packet->e_message->energy.nxdata, BlinkToRadioC$battery[sim_node()]);
-      new_packet->f_message = (void *)0;
-      new_packet->b_message = (void *)0;
-      new_packet->classify = 1;
-
-      if (BlinkToRadioC$SendQueue$enqueue(new_packet) == SUCCESS) 
-        {
-
-          if (BlinkToRadioC$senddatatask$postTask() != SUCCESS) 
-            {
-              sim_log_debug(188U, "Test1", "gg!\n");
-            }
-        }
-      else 
-        {
-          sim_log_debug(189U, "Test1", "shit!");
-        }
-    }
+  BlinkToRadioC$send_battery_info();
 }
 
-#line 495
+#line 657
 static inline void BlinkToRadioC$Timer1$fired(void )
 {
 
@@ -7698,7 +7709,7 @@ static inline void BlinkToRadioC$Timer1$fired(void )
     {
       control_queue_entry_t *new_forward = (void *)0;
 
-#line 501
+#line 663
       if (TOS_NODE_ID != DEST_NODE) 
         {
           BlinkToRadioC$forward_num[sim_node()]++;
@@ -7717,17 +7728,17 @@ static inline void BlinkToRadioC$Timer1$fired(void )
               if (BlinkToRadioC$senddatatask$postTask() != SUCCESS) 
                 {
                   { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 518
+#line 680
                     {
                       BlinkToRadioC$post_fail[sim_node()]++;
                     }
-#line 520
+#line 682
                     __nesc_atomic_end(__nesc_atomic); }
                 }
             }
           else 
             {
-              sim_log_debug(178U, "Test1", "shit!");
+              sim_log_debug(181U, "Test1", "shit!");
             }
         }
     }
@@ -7739,9 +7750,9 @@ static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$d
 }
 
 # 83 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
-inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(uint8_t arg_0x2aee9c0d6c28){
+inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(uint8_t arg_0x2b95b3469c28){
 #line 83
-  switch (arg_0x2aee9c0d6c28) {
+  switch (arg_0x2b95b3469c28) {
 #line 83
     case 0U:
 #line 83
@@ -7769,7 +7780,7 @@ inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$f
 #line 83
     default:
 #line 83
-      /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(arg_0x2aee9c0d6c28);
+      /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(arg_0x2b95b3469c28);
 #line 83
       break;
 #line 83
@@ -7777,19 +7788,6 @@ inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$f
 #line 83
 }
 #line 83
-# 57 "/opt/tinyos-2.1.2/tos/system/QueueC.nc"
-static inline uint8_t /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$size(void )
-#line 57
-{
-  return /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()];
-}
-
-static inline uint8_t /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$maxSize(void )
-#line 61
-{
-  return 20;
-}
-
 # 54 "/opt/tinyos-2.1.2/tos/chips/atm128/timer/HplAtm128Compare.nc"
 inline static void /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$Compare$set(/*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$Compare$size_type t){
 #line 54
@@ -7856,7 +7854,7 @@ static inline void /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm
 static inline void HplAtm128Timer0AsyncP$cancel_compare(void )
 #line 577
 {
-  sim_log_debug(216U, "HplAtm128CompareC", "Cancelling compare at 0x%p\n", HplAtm128Timer0AsyncP$compare[sim_node()]);
+  sim_log_debug(217U, "HplAtm128CompareC", "Cancelling compare at 0x%p\n", HplAtm128Timer0AsyncP$compare[sim_node()]);
   if (HplAtm128Timer0AsyncP$compare[sim_node()] != (void *)0) {
       HplAtm128Timer0AsyncP$compare[sim_node()]->cancelled = 1;
       HplAtm128Timer0AsyncP$compare[sim_node()]->cleanup = sim_queue_cleanup_total;
@@ -7885,7 +7883,7 @@ static inline void HplAtm128Timer0AsyncP$cancel_overflow(void )
 {
   if (HplAtm128Timer0AsyncP$overflow[sim_node()] != (void *)0) {
       HplAtm128Timer0AsyncP$overflow[sim_node()]->cancelled = 1;
-      sim_log_debug(215U, "HplAtm128Timer0AsyncP", "Cancelling overflow %p.\n", HplAtm128Timer0AsyncP$overflow[sim_node()]);
+      sim_log_debug(216U, "HplAtm128Timer0AsyncP", "Cancelling overflow %p.\n", HplAtm128Timer0AsyncP$overflow[sim_node()]);
       HplAtm128Timer0AsyncP$overflow[sim_node()]->cleanup = sim_queue_cleanup_total;
     }
 }
@@ -7900,11 +7898,11 @@ static inline void HplAtm128Timer0AsyncP$timer0_overflow_handle(sim_event_t *evt
   else {
       if ((atm128RegFile[sim_node()][ATM128_TIMSK] & (1 << TOIE0)) != 0) {
           atm128RegFile[sim_node()][ATM128_TIFR] &= ~(1 << TOV0);
-          sim_log_debug(212U, "HplAtm128Timer0AsyncP", "Overflow interrupt at %s\n", sim_time_string());
+          sim_log_debug(213U, "HplAtm128Timer0AsyncP", "Overflow interrupt at %s\n", sim_time_string());
           INTERRUPT_16();
         }
       else {
-          sim_log_debug(213U, "HplAtm128Timer0AsyncP", "Setting overflow bit at %s\n", sim_time_string());
+          sim_log_debug(214U, "HplAtm128Timer0AsyncP", "Setting overflow bit at %s\n", sim_time_string());
           atm128RegFile[sim_node()][ATM128_TIFR] |= 1 << TOV0;
         }
       HplAtm128Timer0AsyncP$configure_overflow(evt);
@@ -7954,7 +7952,7 @@ static inline void HplAtm128Timer0AsyncP$Timer0$set(uint8_t newVal)
   uint8_t curVal = HplAtm128Timer0AsyncP$Timer0$get();
 
 #line 299
-  sim_log_debug(205U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Setting timer: %hhu\n", newVal);
+  sim_log_debug(206U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Setting timer: %hhu\n", newVal);
   if (newVal == curVal) {
       return;
     }
@@ -7981,7 +7979,7 @@ static inline void HplAtm128Timer0AsyncP$Timer0$set(uint8_t newVal)
 static inline void HplAtm128Timer0AsyncP$timer0_compare_handle(sim_event_t *evt)
 #line 187
 {
-  sim_log_debug(195U, "HplAtm128Timer0AsyncP", "Beginning compare 0x%p at %s\n", evt, sim_time_string());
+  sim_log_debug(196U, "HplAtm128Timer0AsyncP", "Beginning compare 0x%p at %s\n", evt, sim_time_string());
   if (evt->cancelled) {
       return;
     }
@@ -7990,21 +7988,21 @@ static inline void HplAtm128Timer0AsyncP$timer0_compare_handle(sim_event_t *evt)
 
 #line 194
       sim_print_now(timeStr, 128);
-      sim_log_debug(196U, "HplAtm128Timer0AsyncP", "Handling compare at 0x%p @ %s\n", evt, sim_time_string());
+      sim_log_debug(197U, "HplAtm128Timer0AsyncP", "Handling compare at 0x%p @ %s\n", evt, sim_time_string());
 
       if ((atm128RegFile[sim_node()][ATM128_TCCR0] & (1 << WGM01)) != 0 && !((atm128RegFile[sim_node()][ATM128_TCCR0] & (1 << WGM00)) != 0)) {
-          sim_log_debug(197U, "HplAtm128Timer0AsyncP", "%s: CTC is set, clear timer.\n", __FUNCTION__);
+          sim_log_debug(198U, "HplAtm128Timer0AsyncP", "%s: CTC is set, clear timer.\n", __FUNCTION__);
           HplAtm128Timer0AsyncP$Timer0$set(0);
         }
       else {
-          sim_log_debug(198U, "HplAtm128Timer0AsyncP", "%s: TCCR is 0x%hhx, %i, %i\n", __FUNCTION__, * (volatile uint8_t *)&atm128RegFile[sim_node()][0x33], (int )((atm128RegFile[sim_node()][ATM128_TCCR0] & (1 << WGM01)) != 0), (int )((atm128RegFile[sim_node()][ATM128_TCCR0] & (1 << WGM00)) != 0));
+          sim_log_debug(199U, "HplAtm128Timer0AsyncP", "%s: TCCR is 0x%hhx, %i, %i\n", __FUNCTION__, * (volatile uint8_t *)&atm128RegFile[sim_node()][0x33], (int )((atm128RegFile[sim_node()][ATM128_TCCR0] & (1 << WGM01)) != 0), (int )((atm128RegFile[sim_node()][ATM128_TCCR0] & (1 << WGM00)) != 0));
         }
 
       if ((atm128RegFile[sim_node()][ATM128_TIMSK] & (1 << OCIE0)) != 0) {
-          sim_log_debug(199U, "HplAtm128Timer0AsyncP", "TIFR is %hhx\n", * (volatile uint8_t *)&atm128RegFile[sim_node()][0x36]);
-          atm128RegFile[sim_node()][ATM128_TIFR] &= ~(1 << OCF0);
           sim_log_debug(200U, "HplAtm128Timer0AsyncP", "TIFR is %hhx\n", * (volatile uint8_t *)&atm128RegFile[sim_node()][0x36]);
-          sim_log_debug(201U, "HplAtm128Timer0AsyncP", "Compare interrupt @ %s\n", timeStr);
+          atm128RegFile[sim_node()][ATM128_TIFR] &= ~(1 << OCF0);
+          sim_log_debug(201U, "HplAtm128Timer0AsyncP", "TIFR is %hhx\n", * (volatile uint8_t *)&atm128RegFile[sim_node()][0x36]);
+          sim_log_debug(202U, "HplAtm128Timer0AsyncP", "Compare interrupt @ %s\n", timeStr);
           INTERRUPT_15();
         }
       else {
@@ -8024,7 +8022,7 @@ static inline sim_event_t *HplAtm128Timer0AsyncP$allocate_compare(void )
   sim_event_t *newEvent = sim_queue_allocate_event();
 
 #line 225
-  sim_log_debug(202U, "HplAtm128Timer0AsyncP", "Allocated compare at 0x%p\n", newEvent);
+  sim_log_debug(203U, "HplAtm128Timer0AsyncP", "Allocated compare at 0x%p\n", newEvent);
   newEvent->handle = HplAtm128Timer0AsyncP$timer0_compare_handle;
   newEvent->cleanup = sim_queue_cleanup_none;
   return newEvent;
@@ -8199,13 +8197,13 @@ inline static void /*BlinkToRadioAppC.SendControl.SenderC.AMQueueEntryP*/AMQueue
 }
 #line 162
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
-inline static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$send(am_id_t arg_0x2aee9bd14488, am_addr_t addr, message_t * msg, uint8_t len){
+inline static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$send(am_id_t arg_0x2b95b3084488, am_addr_t addr, message_t * msg, uint8_t len){
 #line 80
   unsigned char __nesc_result;
 #line 80
 
 #line 80
-  __nesc_result = TossimActiveMessageC$AMSend$send(arg_0x2aee9bd14488, addr, msg, len);
+  __nesc_result = TossimActiveMessageC$AMSend$send(arg_0x2b95b3084488, addr, msg, len);
 #line 80
 
 #line 80
@@ -9372,7 +9370,7 @@ inline static void /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm
 static inline void HplAtm128Timer0AsyncP$Timer0Ctrl$setControl(Atm128TimerControl_t x)
 #line 364
 {
-  sim_log_debug(207U, "HplAtm128Timer0AsyncP", "Setting control to be 0x%hhx\n", x.flat);
+  sim_log_debug(208U, "HplAtm128Timer0AsyncP", "Setting control to be 0x%hhx\n", x.flat);
   * (volatile uint8_t *)&atm128RegFile[sim_node()][0x33] = x.flat;
 }
 
@@ -9447,7 +9445,7 @@ inline static error_t SimMainP$SoftwareInit$init(void ){
 #line 62
 }
 #line 62
-# 58 "BlinkToRadioC.nc"
+# 59 "BlinkToRadioC.nc"
 static inline void BlinkToRadioC$Boot$booted(void )
 {
   BlinkToRadioC$AMControl$start();
@@ -11049,21 +11047,440 @@ static am_id_t TossimActiveMessageC$AMPacket$type(message_t *amsg)
   return __nesc_ntoh_uint8(header->type.nxdata);
 }
 
+# 97 "BlinkToRadioC.nc"
+static uint8_t BlinkToRadioC$check_battery_change(void )
+{
+  { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
+#line 99
+    {
+      if (BlinkToRadioC$battery[sim_node()] >= 9000) 
+        {
+          if (BlinkToRadioC$battery_level[sim_node()] != 10) 
+            {
+              BlinkToRadioC$battery_level[sim_node()] = 10;
+              {
+                unsigned char __nesc_temp = 
+#line 105
+                2;
+
+                {
+#line 105
+                  __nesc_atomic_end(__nesc_atomic); 
+#line 105
+                  return __nesc_temp;
+                }
+              }
+            }
+          else 
+#line 108
+            {
+              {
+                unsigned char __nesc_temp = 
+#line 109
+                1;
+
+                {
+#line 109
+                  __nesc_atomic_end(__nesc_atomic); 
+#line 109
+                  return __nesc_temp;
+                }
+              }
+            }
+        }
+      else {
+#line 112
+        if (BlinkToRadioC$battery[sim_node()] < 9000 && BlinkToRadioC$battery[sim_node()] >= 8000) 
+          {
+            if (BlinkToRadioC$battery_level[sim_node()] != 9) 
+              {
+                BlinkToRadioC$battery_level[sim_node()] = 9;
+                {
+                  unsigned char __nesc_temp = 
+#line 117
+                  2;
+
+                  {
+#line 117
+                    __nesc_atomic_end(__nesc_atomic); 
+#line 117
+                    return __nesc_temp;
+                  }
+                }
+              }
+            else 
+#line 120
+              {
+                {
+                  unsigned char __nesc_temp = 
+#line 121
+                  1;
+
+                  {
+#line 121
+                    __nesc_atomic_end(__nesc_atomic); 
+#line 121
+                    return __nesc_temp;
+                  }
+                }
+              }
+          }
+        else {
+#line 124
+          if (BlinkToRadioC$battery[sim_node()] < 8000 && BlinkToRadioC$battery[sim_node()] >= 7000) 
+            {
+              if (BlinkToRadioC$battery_level[sim_node()] != 8) 
+                {
+                  BlinkToRadioC$battery_level[sim_node()] = 8;
+                  {
+                    unsigned char __nesc_temp = 
+#line 129
+                    2;
+
+                    {
+#line 129
+                      __nesc_atomic_end(__nesc_atomic); 
+#line 129
+                      return __nesc_temp;
+                    }
+                  }
+                }
+              else 
+#line 132
+                {
+                  {
+                    unsigned char __nesc_temp = 
+#line 133
+                    1;
+
+                    {
+#line 133
+                      __nesc_atomic_end(__nesc_atomic); 
+#line 133
+                      return __nesc_temp;
+                    }
+                  }
+                }
+            }
+          else {
+#line 136
+            if (BlinkToRadioC$battery[sim_node()] < 7000 && BlinkToRadioC$battery[sim_node()] >= 6000) 
+              {
+                if (BlinkToRadioC$battery_level[sim_node()] != 7) 
+                  {
+                    BlinkToRadioC$battery_level[sim_node()] = 7;
+                    {
+                      unsigned char __nesc_temp = 
+#line 141
+                      2;
+
+                      {
+#line 141
+                        __nesc_atomic_end(__nesc_atomic); 
+#line 141
+                        return __nesc_temp;
+                      }
+                    }
+                  }
+                else 
+#line 144
+                  {
+                    {
+                      unsigned char __nesc_temp = 
+#line 145
+                      1;
+
+                      {
+#line 145
+                        __nesc_atomic_end(__nesc_atomic); 
+#line 145
+                        return __nesc_temp;
+                      }
+                    }
+                  }
+              }
+            else {
+#line 148
+              if (BlinkToRadioC$battery[sim_node()] < 6000 && BlinkToRadioC$battery[sim_node()] >= 5000) 
+                {
+                  if (BlinkToRadioC$battery_level[sim_node()] != 6) 
+                    {
+                      BlinkToRadioC$battery_level[sim_node()] = 6;
+                      {
+                        unsigned char __nesc_temp = 
+#line 153
+                        2;
+
+                        {
+#line 153
+                          __nesc_atomic_end(__nesc_atomic); 
+#line 153
+                          return __nesc_temp;
+                        }
+                      }
+                    }
+                  else 
+#line 156
+                    {
+                      {
+                        unsigned char __nesc_temp = 
+#line 157
+                        1;
+
+                        {
+#line 157
+                          __nesc_atomic_end(__nesc_atomic); 
+#line 157
+                          return __nesc_temp;
+                        }
+                      }
+                    }
+                }
+              else {
+#line 160
+                if (BlinkToRadioC$battery[sim_node()] < 5000 && BlinkToRadioC$battery[sim_node()] >= 4000) 
+                  {
+                    if (BlinkToRadioC$battery_level[sim_node()] != 5) 
+                      {
+                        BlinkToRadioC$battery_level[sim_node()] = 5;
+                        {
+                          unsigned char __nesc_temp = 
+#line 165
+                          2;
+
+                          {
+#line 165
+                            __nesc_atomic_end(__nesc_atomic); 
+#line 165
+                            return __nesc_temp;
+                          }
+                        }
+                      }
+                    else 
+#line 168
+                      {
+                        {
+                          unsigned char __nesc_temp = 
+#line 169
+                          1;
+
+                          {
+#line 169
+                            __nesc_atomic_end(__nesc_atomic); 
+#line 169
+                            return __nesc_temp;
+                          }
+                        }
+                      }
+                  }
+                else {
+#line 172
+                  if (BlinkToRadioC$battery[sim_node()] < 4000 && BlinkToRadioC$battery[sim_node()] >= 3000) 
+                    {
+                      if (BlinkToRadioC$battery_level[sim_node()] != 4) 
+                        {
+                          if (BlinkToRadioC$isrunning[sim_node()] == TRUE) 
+                            {
+                              BlinkToRadioC$battery_level[sim_node()] = 4;
+                              {
+                                unsigned char __nesc_temp = 
+#line 179
+                                2;
+
+                                {
+#line 179
+                                  __nesc_atomic_end(__nesc_atomic); 
+#line 179
+                                  return __nesc_temp;
+                                }
+                              }
+                            }
+                          else {
+#line 181
+                            if (BlinkToRadioC$isrunning[sim_node()] == FALSE) 
+                              {
+                                BlinkToRadioC$battery_level[sim_node()] = 4;
+                                BlinkToRadioC$isrunning[sim_node()] = TRUE;
+                                {
+                                  unsigned char __nesc_temp = 
+#line 185
+                                  4;
+
+                                  {
+#line 185
+                                    __nesc_atomic_end(__nesc_atomic); 
+#line 185
+                                    return __nesc_temp;
+                                  }
+                                }
+                              }
+                            }
+                        }
+                      else 
+#line 189
+                        {
+                          {
+                            unsigned char __nesc_temp = 
+#line 190
+                            1;
+
+                            {
+#line 190
+                              __nesc_atomic_end(__nesc_atomic); 
+#line 190
+                              return __nesc_temp;
+                            }
+                          }
+                        }
+                    }
+                  else {
+#line 194
+                    if (BlinkToRadioC$battery[sim_node()] < 3000 && BlinkToRadioC$battery[sim_node()] >= 2000) 
+                      {
+                        if (BlinkToRadioC$battery_level[sim_node()] > 3) 
+                          {
+                            BlinkToRadioC$battery_level[sim_node()] = 3;
+                            {
+                              unsigned char __nesc_temp = 
+#line 199
+                              2;
+
+                              {
+#line 199
+                                __nesc_atomic_end(__nesc_atomic); 
+#line 199
+                                return __nesc_temp;
+                              }
+                            }
+                          }
+                        else {
+#line 201
+                          if (BlinkToRadioC$battery_level[sim_node()] == 2 && BlinkToRadioC$isrunning[sim_node()] == FALSE) 
+                            {
+                              BlinkToRadioC$battery_level[sim_node()] = 2;
+                              {
+                                unsigned char __nesc_temp = 
+#line 204
+                                1;
+
+                                {
+#line 204
+                                  __nesc_atomic_end(__nesc_atomic); 
+#line 204
+                                  return __nesc_temp;
+                                }
+                              }
+                            }
+                          else 
+#line 207
+                            {
+                              {
+                                unsigned char __nesc_temp = 
+#line 208
+                                1;
+
+                                {
+#line 208
+                                  __nesc_atomic_end(__nesc_atomic); 
+#line 208
+                                  return __nesc_temp;
+                                }
+                              }
+                            }
+                          }
+                      }
+                    else {
+#line 211
+                      if (BlinkToRadioC$battery[sim_node()] < 2000) 
+                        {
+                          if (BlinkToRadioC$battery_level[sim_node()] > 2) 
+                            {
+                              BlinkToRadioC$battery_level[sim_node()] = 2;
+                              BlinkToRadioC$isrunning[sim_node()] = FALSE;
+                              {
+                                unsigned char __nesc_temp = 
+#line 217
+                                3;
+
+                                {
+#line 217
+                                  __nesc_atomic_end(__nesc_atomic); 
+#line 217
+                                  return __nesc_temp;
+                                }
+                              }
+                            }
+                          else 
+#line 220
+                            {
+                              {
+                                unsigned char __nesc_temp = 
+#line 221
+                                1;
+
+                                {
+#line 221
+                                  __nesc_atomic_end(__nesc_atomic); 
+#line 221
+                                  return __nesc_temp;
+                                }
+                              }
+                            }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+#line 234
+    __nesc_atomic_end(__nesc_atomic); }
+}
+
+#line 433
+static void BlinkToRadioC$send_battery_info(void )
+#line 433
+{
+
+  control_queue_entry_t *new_packet = (control_queue_entry_t *)malloc(sizeof(control_queue_entry_t ));
+
+#line 436
+  new_packet->e_message = (energymessage_t *)malloc(sizeof(energymessage_t ));
+  __nesc_hton_uint8(new_packet->e_message->energy.nxdata, BlinkToRadioC$battery_level[sim_node()]);
+  new_packet->f_message = (void *)0;
+  new_packet->b_message = (void *)0;
+  new_packet->classify = 1;
+  if (BlinkToRadioC$SendQueue$enqueue(new_packet) == SUCCESS) 
+    {
+      if (BlinkToRadioC$senddatatask$postTask() != SUCCESS) 
+        {
+          sim_log_debug(172U, "Test1", "gg!\n");
+        }
+    }
+  else 
+    {
+      sim_log_debug(173U, "Test1", "shit!");
+    }
+}
+
 # 97 "/opt/tinyos-2.1.2/tos/system/QueueC.nc"
-static error_t /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$enqueue(/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue_t newVal)
+static error_t /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$enqueue(/*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue_t newVal)
 #line 97
 {
-  if (/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$size() < /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$maxSize()) {
-      sim_log_debug(230U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]);
-      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue[sim_node()][/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()]] = newVal;
-      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()]++;
-      if (/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()] == 20) {
+  if (/*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$size() < /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$maxSize()) {
+      sim_log_debug(224U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]);
+      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue[sim_node()][/*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()]] = newVal;
+      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()]++;
+      if (/*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()] == 20) {
 #line 102
-        /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()] = 0;
+        /*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()] = 0;
         }
 #line 103
-      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]++;
-      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$printQueue();
+      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]++;
+      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$printQueue();
       return SUCCESS;
     }
   else {
@@ -11072,7 +11489,7 @@ static error_t /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$enqueue(/*BlinkT
 }
 
 #line 69
-static void /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$printQueue(void )
+static void /*BlinkToRadioAppC.SendQueueP*/QueueC$0$printQueue(void )
 #line 69
 {
 
@@ -11081,18 +11498,18 @@ static void /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$printQueue(void )
   int j;
 
 #line 72
-  sim_log_debug(224U, "QueueC", "head <-");
-  for (i = /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$head[sim_node()]; i < /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$head[sim_node()] + /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]; i++) {
-      sim_log_debug_clear(225U, "QueueC", "[");
-      for (j = 0; j < sizeof(/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue_t ); j++) {
-          uint8_t v = ((uint8_t *)&/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue[sim_node()][i % 20])[j];
+  sim_log_debug(218U, "QueueC", "head <-");
+  for (i = /*BlinkToRadioAppC.SendQueueP*/QueueC$0$head[sim_node()]; i < /*BlinkToRadioAppC.SendQueueP*/QueueC$0$head[sim_node()] + /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]; i++) {
+      sim_log_debug_clear(219U, "QueueC", "[");
+      for (j = 0; j < sizeof(/*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue_t ); j++) {
+          uint8_t v = ((uint8_t *)&/*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue[sim_node()][i % 20])[j];
 
 #line 77
-          sim_log_debug_clear(226U, "QueueC", "%0.2hhx", v);
+          sim_log_debug_clear(220U, "QueueC", "%0.2hhx", v);
         }
-      sim_log_debug_clear(227U, "QueueC", "] ");
+      sim_log_debug_clear(221U, "QueueC", "] ");
     }
-  sim_log_debug_clear(228U, "QueueC", "<- tail\n");
+  sim_log_debug_clear(222U, "QueueC", "<- tail\n");
 }
 
 # 205 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
@@ -11127,6 +11544,52 @@ static void SimSchedulerBasicP$sim_scheduler_submit_event(void )
       sim_queue_insert(&SimSchedulerBasicP$sim_scheduler_event[sim_node()]);
       SimSchedulerBasicP$sim_scheduler_event_pending[sim_node()] = TRUE;
     }
+}
+
+# 97 "/opt/tinyos-2.1.2/tos/system/QueueC.nc"
+static error_t /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$enqueue(/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue_t newVal)
+#line 97
+{
+  if (/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$size() < /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$maxSize()) {
+      sim_log_debug(231U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]);
+      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue[sim_node()][/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()]] = newVal;
+      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()]++;
+      if (/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()] == 20) {
+#line 102
+        /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$tail[sim_node()] = 0;
+        }
+#line 103
+      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]++;
+      /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$printQueue();
+      return SUCCESS;
+    }
+  else {
+      return FAIL;
+    }
+}
+
+#line 69
+static void /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$printQueue(void )
+#line 69
+{
+
+  int i;
+#line 71
+  int j;
+
+#line 72
+  sim_log_debug(225U, "QueueC", "head <-");
+  for (i = /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$head[sim_node()]; i < /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$head[sim_node()] + /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]; i++) {
+      sim_log_debug_clear(226U, "QueueC", "[");
+      for (j = 0; j < sizeof(/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue_t ); j++) {
+          uint8_t v = ((uint8_t *)&/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue[sim_node()][i % 20])[j];
+
+#line 77
+          sim_log_debug_clear(227U, "QueueC", "%0.2hhx", v);
+        }
+      sim_log_debug_clear(228U, "QueueC", "] ");
+    }
+  sim_log_debug_clear(229U, "QueueC", "<- tail\n");
 }
 
 # 110 "/opt/tinyos-2.1.2/tos/lib/tossim/sim_packet.c"
@@ -11271,7 +11734,7 @@ static uint8_t HplAtm128Timer0AsyncP$Timer0$get(void )
   elapsed = HplAtm128Timer0AsyncP$sim_to_clock(elapsed);
   elapsed = elapsed >> HplAtm128Timer0AsyncP$shiftFromScale();
   rval = (uint8_t )(elapsed & 0xff);
-  sim_log_debug(204U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Getting timer: %hhu\n", rval);
+  sim_log_debug(205U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Getting timer: %hhu\n", rval);
   return rval;
 }
 
@@ -11350,7 +11813,7 @@ static Atm128_TIFR_t HplAtm128Timer0AsyncP$Timer0Ctrl$getInterruptFlag(void )
 static uint8_t HplAtm128Timer0AsyncP$Compare$get(void )
 #line 457
 {
-  sim_log_debug(210U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Getting compare: %hhu\n", * (volatile uint8_t *)&atm128RegFile[sim_node()][0x31]);
+  sim_log_debug(211U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Getting compare: %hhu\n", * (volatile uint8_t *)&atm128RegFile[sim_node()][0x31]);
   return * (volatile uint8_t *)&atm128RegFile[sim_node()][0x31];
 }
 
@@ -11384,52 +11847,6 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$fireTimers(uin
   /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$updateFromTimer$postTask();
 }
 
-# 97 "/opt/tinyos-2.1.2/tos/system/QueueC.nc"
-static error_t /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$enqueue(/*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue_t newVal)
-#line 97
-{
-  if (/*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$size() < /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$maxSize()) {
-      sim_log_debug(223U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]);
-      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue[sim_node()][/*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()]] = newVal;
-      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()]++;
-      if (/*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()] == 20) {
-#line 102
-        /*BlinkToRadioAppC.SendQueueP*/QueueC$0$tail[sim_node()] = 0;
-        }
-#line 103
-      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]++;
-      /*BlinkToRadioAppC.SendQueueP*/QueueC$0$printQueue();
-      return SUCCESS;
-    }
-  else {
-      return FAIL;
-    }
-}
-
-#line 69
-static void /*BlinkToRadioAppC.SendQueueP*/QueueC$0$printQueue(void )
-#line 69
-{
-
-  int i;
-#line 71
-  int j;
-
-#line 72
-  sim_log_debug(217U, "QueueC", "head <-");
-  for (i = /*BlinkToRadioAppC.SendQueueP*/QueueC$0$head[sim_node()]; i < /*BlinkToRadioAppC.SendQueueP*/QueueC$0$head[sim_node()] + /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]; i++) {
-      sim_log_debug_clear(218U, "QueueC", "[");
-      for (j = 0; j < sizeof(/*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue_t ); j++) {
-          uint8_t v = ((uint8_t *)&/*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue[sim_node()][i % 20])[j];
-
-#line 77
-          sim_log_debug_clear(219U, "QueueC", "%0.2hhx", v);
-        }
-      sim_log_debug_clear(220U, "QueueC", "] ");
-    }
-  sim_log_debug_clear(221U, "QueueC", "<- tail\n");
-}
-
 # 212 "/opt/tinyos-2.1.2/tos/chips/atm128/timer/Atm128AlarmAsyncP.nc"
 static void /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$Alarm$startAt(uint32_t nt0, uint32_t ndt)
 #line 212
@@ -11461,13 +11878,13 @@ static void /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128Alar
       uint8_t tifr = (uint8_t )/*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$TimerCtrl$getInterruptFlag().flat;
 
 #line 101
-      sim_log_debug(190U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: TIFR is %hhx\n", tifr);
+      sim_log_debug(191U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: TIFR is %hhx\n", tifr);
       if ((interrupt_in != 0 && interrupt_in < /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$MINDT) || tifr & (1 << OCF0)) {
           if (interrupt_in < /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$MINDT) {
-              sim_log_debug(191U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: under min: %hhu.\n", interrupt_in);
+              sim_log_debug(192U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: under min: %hhu.\n", interrupt_in);
             }
           else {
-              sim_log_debug(192U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: OCF set.\n");
+              sim_log_debug(193U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: OCF set.\n");
             }
           {
 #line 109
@@ -11479,14 +11896,14 @@ static void /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128Alar
 
       if (!/*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$set[sim_node()]) {
           newOcr0 = /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$MAXT;
-          sim_log_debug(193U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: no alarm set, set at max.\n");
+          sim_log_debug(194U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: no alarm set, set at max.\n");
         }
       else 
         {
           uint32_t now = /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$Counter$get();
 
 #line 120
-          sim_log_debug(194U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: now-t0 = %llu, dt = %llu\n", now - /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$t0[sim_node()], /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$dt[sim_node()]);
+          sim_log_debug(195U, "Atm128AlarmAsyncP", "Atm128AlarmAsyncP: now-t0 = %llu, dt = %llu\n", now - /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$t0[sim_node()], /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$dt[sim_node()]);
 
           if ((uint32_t )(now - /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$t0[sim_node()]) >= /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$dt[sim_node()]) 
             {
@@ -11530,7 +11947,7 @@ static void /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128Alar
 static void HplAtm128Timer0AsyncP$Compare$set(uint8_t t)
 #line 463
 {
-  sim_log_debug(211U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Setting compare: %hhu\n", t);
+  sim_log_debug(212U, "HplAtm128Timer0AsyncP", "HplAtm128Timer0AsyncP: Setting compare: %hhu\n", t);
   /* atomic removed: atomic calls only */
 #line 465
   {
@@ -11611,7 +12028,7 @@ static void HplAtm128Timer0AsyncP$configure_overflow(sim_event_t *evt)
   overflowTime += sim_time();
   overflowTime -= (sim_time() - HplAtm128Timer0AsyncP$last_zero()) % (1 << HplAtm128Timer0AsyncP$shiftFromScale());
 
-  sim_log_debug(214U, "HplAtm128Timer0AsyncP", "Scheduling new overflow for %i at time %llu\n", sim_node(), overflowTime);
+  sim_log_debug(215U, "HplAtm128Timer0AsyncP", "Scheduling new overflow for %i at time %llu\n", sim_node(), overflowTime);
 
   evt->time = overflowTime;
 }
@@ -11658,7 +12075,7 @@ static void HplAtm128Timer0AsyncP$configure_compare(sim_event_t *evt)
   phaseOffset %= HplAtm128Timer0AsyncP$clock_to_sim(1 << HplAtm128Timer0AsyncP$shiftFromScale());
   compareTime -= phaseOffset;
 
-  sim_log_debug(203U, "HplAtm128Timer0AsyncP", "Configuring new compare of %i for %i at time %llu  (@ %llu)\n", (int )compareVal, sim_node(), compareTime, sim_time());
+  sim_log_debug(204U, "HplAtm128Timer0AsyncP", "Configuring new compare of %i for %i at time %llu  (@ %llu)\n", (int )compareVal, sim_node(), compareTime, sim_time());
 
   evt->time = compareTime;
 }
@@ -11670,7 +12087,7 @@ static /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue_t /*BlinkToRadioAppC.Rec
   /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$queue_t t = /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$head();
 
 #line 87
-  sim_log_debug(229U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]);
+  sim_log_debug(230U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$size[sim_node()]);
   if (!/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$Queue$empty()) {
       /*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$head[sim_node()]++;
       if (/*BlinkToRadioAppC.ReceiveQueueP*/QueueC$1$head[sim_node()] == 20) {
@@ -11831,42 +12248,44 @@ static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$tryToSend(void )
     }
 }
 
-# 532 "BlinkToRadioC.nc"
+# 694 "BlinkToRadioC.nc"
 static void BlinkToRadioC$BeaconSend$sendDone(message_t *msg, error_t error)
-#line 532
+#line 694
 {
 
+  uint8_t k;
 
-
+#line 697
   if (BlinkToRadioC$flag[sim_node()] == 2) 
     {
-
       if (&BlinkToRadioC$pkt2[sim_node()] == msg) 
         {
 
           if (TOS_NODE_ID == 0) 
             {
-              sim_log_debug(179U, "Test1", "send forward ant %u\n", BlinkToRadioC$forward_num[sim_node()]);
+              sim_log_debug(182U, "Test1", "send forward ant %u\n", BlinkToRadioC$forward_num[sim_node()]);
             }
           if (TOS_NODE_ID == 1 || TOS_NODE_ID == 2) 
             {
               BlinkToRadioC$sendnum[sim_node()]++;
-              sim_log_debug(180U, "Test1", "NODE %u send %u\n", TOS_NODE_ID, BlinkToRadioC$sendnum[sim_node()]);
+              sim_log_debug(183U, "Test1", "NODE %u send %u\n", TOS_NODE_ID, BlinkToRadioC$sendnum[sim_node()]);
             }
-
           BlinkToRadioC$SendQueue$dequeue();
           BlinkToRadioC$battery[sim_node()] = BlinkToRadioC$battery[sim_node()] - 5;
-
+          if (BlinkToRadioC$check_battery_change() != 1) 
+            {
+              BlinkToRadioC$send_battery_info();
+            }
           BlinkToRadioC$busy[sim_node()] = FALSE;
 
 
           { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 558
+#line 720
             {
               uint8_t k;
               uint8_t j = BlinkToRadioC$post_fail[sim_node()];
 
-#line 561
+#line 723
               if (BlinkToRadioC$post_fail[sim_node()] != 0) 
                 {
                   for (k = 1; k <= BlinkToRadioC$post_fail[sim_node()]; k++) 
@@ -11879,7 +12298,7 @@ static void BlinkToRadioC$BeaconSend$sendDone(message_t *msg, error_t error)
                 }
               BlinkToRadioC$post_fail[sim_node()] = j;
             }
-#line 572
+#line 734
             __nesc_atomic_end(__nesc_atomic); }
 
           if (TOS_NODE_ID == 0) 
@@ -11891,30 +12310,30 @@ static void BlinkToRadioC$BeaconSend$sendDone(message_t *msg, error_t error)
         {
 
           BlinkToRadioC$busy[sim_node()] = FALSE;
-          sim_log_debug(181U, "Test1", "send ant error!\n");
+          sim_log_debug(184U, "Test1", "send ant error!\n");
           BlinkToRadioC$senddatatask$postTask();
         }
     }
   if (BlinkToRadioC$flag[sim_node()] == 1) 
     {
-
       if (&BlinkToRadioC$pkt[sim_node()] == msg) 
         {
-
-
           BlinkToRadioC$SendQueue$dequeue();
           BlinkToRadioC$battery[sim_node()] = BlinkToRadioC$battery[sim_node()] - 5;
-
+          if (BlinkToRadioC$check_battery_change() != 1) 
+            {
+              BlinkToRadioC$send_battery_info();
+            }
           BlinkToRadioC$busy[sim_node()] = FALSE;
 
 
           { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 600
+#line 762
             {
               uint8_t k;
               uint8_t j = BlinkToRadioC$post_fail[sim_node()];
 
-#line 603
+#line 765
               if (BlinkToRadioC$post_fail[sim_node()] != 0) 
                 {
                   for (k = 1; k <= BlinkToRadioC$post_fail[sim_node()]; k++) 
@@ -11927,17 +12346,12 @@ static void BlinkToRadioC$BeaconSend$sendDone(message_t *msg, error_t error)
                 }
               BlinkToRadioC$post_fail[sim_node()] = j;
             }
-#line 614
+#line 776
             __nesc_atomic_end(__nesc_atomic); }
-
           if (BlinkToRadioC$hellonum[sim_node()] < 5) 
             {
               BlinkToRadioC$hellonum[sim_node()]++;
               BlinkToRadioC$MilliTimer$startOneShot(250);
-            }
-          else 
-            {
-              BlinkToRadioC$MilliTimer$startOneShot(4000);
             }
         }
       else 
@@ -11945,7 +12359,7 @@ static void BlinkToRadioC$BeaconSend$sendDone(message_t *msg, error_t error)
 
           BlinkToRadioC$busy[sim_node()] = FALSE;
 
-          sim_log_debug(182U, "Test1", "send error!\n");
+          sim_log_debug(185U, "Test1", "send error!\n");
           BlinkToRadioC$senddatatask$postTask();
         }
     }
@@ -11958,7 +12372,7 @@ static /*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue_t /*BlinkToRadioAppC.SendQu
   /*BlinkToRadioAppC.SendQueueP*/QueueC$0$queue_t t = /*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$head();
 
 #line 87
-  sim_log_debug(222U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]);
+  sim_log_debug(223U, "QueueC", "%s: size is %hhu\n", __FUNCTION__, /*BlinkToRadioAppC.SendQueueP*/QueueC$0$size[sim_node()]);
   if (!/*BlinkToRadioAppC.SendQueueP*/QueueC$0$Queue$empty()) {
       /*BlinkToRadioAppC.SendQueueP*/QueueC$0$head[sim_node()]++;
       if (/*BlinkToRadioAppC.SendQueueP*/QueueC$0$head[sim_node()] == 20) {
@@ -12621,6 +13035,12 @@ static int __nesc_nido_resolve(int __nesc_mote,
     *size = sizeof(BlinkToRadioC$testnum[__nesc_mote]);
     return 0;
   }
+  if (!strcmp(varname, "BlinkToRadioC$battery_level"))
+  {
+    *addr = (uintptr_t)&BlinkToRadioC$battery_level[__nesc_mote];
+    *size = sizeof(BlinkToRadioC$battery_level[__nesc_mote]);
+    return 0;
+  }
   if (!strcmp(varname, "BlinkToRadioC$receiving"))
   {
     *addr = (uintptr_t)&BlinkToRadioC$receiving[__nesc_mote];
@@ -12976,6 +13396,7 @@ static void __nesc_nido_initialise(int __nesc_mote)
   memset((void *)&BlinkToRadioC$receiveantnum[__nesc_mote], 0, sizeof BlinkToRadioC$receiveantnum[__nesc_mote]);
   memset((void *)&BlinkToRadioC$sendnum[__nesc_mote], 0, sizeof BlinkToRadioC$sendnum[__nesc_mote]);
   memset((void *)&BlinkToRadioC$testnum[__nesc_mote], 0, sizeof BlinkToRadioC$testnum[__nesc_mote]);
+  memset((void *)&BlinkToRadioC$battery_level[__nesc_mote], 0, sizeof BlinkToRadioC$battery_level[__nesc_mote]);
   memset((void *)&BlinkToRadioC$receiving[__nesc_mote], 0, sizeof BlinkToRadioC$receiving[__nesc_mote]);
 
   /* Module Atm128AlarmAsyncP$0 */

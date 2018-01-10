@@ -39,6 +39,7 @@ implementation
   uint8_t receiveantnum;
   uint8_t sendnum;
   uint8_t testnum;
+  uint8_t battery_level;
   //bool ack_pending;
   bool receiving;
   bool is_destable()//检测本节点是否与汇聚节点相邻,这里返回值定义是否正确？
@@ -64,13 +65,14 @@ implementation
   {
       if(err==SUCCESS){
                post_fail = 0;//
+               battery_level = 10;
       	  tableactive = 0;//路由表项设置为0个
       	  battery = 10000;//满电是10000
       	  isrunning = TRUE;//表示是否位于休眠状态
       	  hellonum = 0;
-          forward_num = -1;
-          receiveantnum = -1;
-          sendnum = -1;
+          	  forward_num = -1;
+               receiveantnum = -1;
+                sendnum = -1;
       	  //其他要初始化的。。。。。。
       	  testnum = -1;
       	  receiving = FALSE;
@@ -89,6 +91,141 @@ implementation
   event void AMControl.stopDone(error_t err){
 	
   }
+
+ 
+
+uint8_t check_battery_change()//there may be problem
+{
+       atomic{
+	if(battery>=9000)
+	{
+		if(battery_level != 10)
+		{
+			battery_level = 10;
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+       	}
+       	else if(battery<9000 && battery>=8000)
+       	{
+       		if(battery_level != 9)
+       		{
+       			battery_level = 9;
+       			return 2;
+       		}
+       		else
+       		{
+       			return 1;
+       		}
+       	}
+       	else if(battery<8000 && battery>=7000)
+       	{
+       		if(battery_level != 8)
+       		{
+       			battery_level = 8;
+       			return 2;
+       		}
+       		else
+       		{
+       			return 1;
+       		}
+       	}
+       	else if(battery<7000 && battery>=6000)
+       	{
+       		if(battery_level != 7)
+       		{
+       			battery_level = 7;
+       			return 2;
+       		}
+       		else
+       		{
+       			return 1;
+       		}
+       	}
+       	else if(battery<6000 && battery>=5000)
+       	{
+       		if(battery_level != 6)
+       		{
+       			battery_level = 6;
+       			return 2;
+       		}
+       		else
+       		{
+       			return 1;
+       		}
+       	}
+       	else if(battery<5000 && battery>=4000)
+       	{
+       		if(battery_level != 5)
+       		{
+       			battery_level = 5;
+       			return 2;
+       		}
+       		else
+       		{
+       			return 1;
+       		}
+       	}
+       	else if(battery<4000 && battery>=3000)
+       	{
+       		if(battery_level != 4)
+       		{
+       			if(isrunning == TRUE)
+       			{
+       				battery_level = 4;
+       				return 2;
+       			}
+       			else if(isrunning == FALSE)
+       			{
+       				battery_level = 4;
+       				isrunning = TRUE;
+       				return  4;
+       			}
+       		}
+       		else
+       		{
+       			return 1;
+       		}
+       	}
+
+       	else if(battery<3000 && battery>=2000)
+       	{
+       	             if(battery_level > 3)
+       		{
+       			battery_level = 3;
+       			return 2;
+       		}
+       		else if(battery_level ==2 && isrunning == FALSE)
+       		{
+       			battery_level = 2;
+       			return 1;
+       		}
+       		else 
+       		{
+       			return 1;
+       		}
+       	}
+       	else if(battery<2000)
+       	{
+       		if(battery_level >2)//can be ==3
+       		{
+       			battery_level = 2;
+       			isrunning = FALSE;
+       			return 3;
+       		}
+       		else
+       		{
+       			return 1;
+       		}
+       	}
+       }
+}
+
+
+
   bool findin(uint8_t ttl,uint8_t visited[12],uint8_t neighbor)
   {
     bool isin = FALSE;
@@ -167,7 +304,6 @@ implementation
 
 	      				flag = 1;
 			   		busy = TRUE;
-			    		//call MilliTimer.startOneShot(4000);
 				}
 				else//发送不成功，重发
 				{
@@ -294,6 +430,28 @@ implementation
       // }
   }
 
+void send_battery_info(){
+
+  	control_queue_entry_t* new_packet = (control_queue_entry_t*)malloc(sizeof(control_queue_entry_t));
+	new_packet->e_message = (energymessage_t*)malloc(sizeof(energymessage_t));
+	new_packet->e_message-> energy= battery_level;
+	new_packet->f_message = NULL;
+	new_packet->b_message = NULL;	
+	new_packet->classify = 1;
+	if(call SendQueue.enqueue(new_packet)==SUCCESS)//这里可能将会出现问题
+	{
+		if(post senddatatask()!=SUCCESS)
+		{
+		    	dbg("Test1","gg!\n");
+		}
+	}
+	else
+	{
+		dbg("Test1","shit!");
+	}
+      
+ }
+
   uint8_t findinroutingtable(am_addr_t neighbor)
   {
   	uint8_t i;
@@ -349,11 +507,15 @@ implementation
   		}
   		else if(idx < tableactive){//找到了已经有的，更新之
   			routing_table[idx].energy = a->energy;
-  			routing_table[idx].enabled = TRUE;
-  			if(routing_table[idx].energy < 1000)//能量小于百分之10，就可认为链路已失效。
+  			if(routing_table[idx].enabled == TRUE && routing_table[idx].energy == 2)//能量小于百分之20，就可认为链路已失效。
   			{
   				routing_table[idx].enabled = FALSE;
   				routing_table[idx].phero = 0;//信息素浓度设为0
+  			}
+  			else if(routing_table[idx].enabled == FALSE && routing_table[idx].energy > 2)//wake up from sleeping
+  			{
+  				routing_table[idx].enabled = TRUE;
+  				routing_table[idx].phero = 100;//phero return to 100
   			}
   			call ReceiveQueue.dequeue();
   			return;
@@ -481,7 +643,7 @@ implementation
 	}*/
 	//dbg("Test1","the length of sendqueue is %u @%u\n",call SendQueue.size(),TOS_NODE_ID);
 	//dbg("Test1","the length of receivequeue is %u @%u\n",call ReceiveQueue.size(),TOS_NODE_ID);
-	//dbg("Test1","the tableactive is %u @%u\n",tableactive,TOS_NODE_ID);
+	dbg("Test1","the tableactive is %u @%u\n",tableactive,TOS_NODE_ID);
 	if(TOS_NODE_ID==DEST_NODE)
 	{
 		//dbg("Test1","the receivenum is %u\n",testnum);
@@ -531,11 +693,9 @@ event void Timer1.fired()
 
   event void BeaconSend.sendDone(message_t* msg,error_t error){//maybe need acks
   	  //dbg("Test1","flag=%u",flag);
-	// uint16_t r;
-
+	  uint8_t k;
 	  if(flag==2)
 	  {
-	  	//if(&pkt2 == msg && (ack_pending == TRUE &&call PacketAcknowledgements.wasAcked(msg)==SUCCESS))
 	  	if(&pkt2 == msg)
 	  	{
 	  		
@@ -548,10 +708,12 @@ event void Timer1.fired()
 				sendnum++;
 				dbg("Test1","NODE %u send %u\n",TOS_NODE_ID,sendnum);
 			}
-	  	             //dbg("Test1","ant ACKED !\n");
 			   call SendQueue.dequeue();//发送成功之后再出队
 			   battery = battery-5;//每发送一个，电量-5
-			   
+			   if(check_battery_change()!=1)
+			   {
+			   	send_battery_info();
+			   }
 			   busy = FALSE;
 			  
 			   //next operation should be atomic
@@ -586,14 +748,14 @@ event void Timer1.fired()
 	   }
 	    if(flag==1)
 	  {
-	  	//if(&pkt == msg && (ack_pending == TRUE && call PacketAcknowledgements.wasAcked(msg)==SUCCESS))
 	  	if(&pkt == msg)
 	  	{
-	  		
-	  		//dbg("Test1","ACKED!\n");
 			   call SendQueue.dequeue();//发送成功之后再出队
 			   battery = battery-5;//每发送一个，电量-5
-			   
+			   if(check_battery_change()!=1)
+			   {
+			   	send_battery_info();
+			   }
 			   busy = FALSE;
 			  
 			   //next operation should be atomic
@@ -612,15 +774,10 @@ event void Timer1.fired()
 				   }
 				   post_fail = j;
 			   }
-			//   call MilliTimer.startOneShot(4000);//start the next period
 			if(hellonum<5)
 			{
 				hellonum++;//发送的数量+1
 				call MilliTimer.startOneShot(250);
-			}
-			else
-			{
-				call MilliTimer.startOneShot(4000);
 			}
 		   }
 		   else 
@@ -633,14 +790,24 @@ event void Timer1.fired()
 		   }
 	   }
   }
+event void MilliTimer.fired()
+{
 
+	send_battery_info();
+}
   event message_t* BeaconReceive.receive(message_t* msg,void* payload,uint8_t len)//接收，并执行任务
   {
   	receiving = TRUE;
+
      atomic{
-     
+      
        control_queue_receive_t* new_packet = NULL;
+       
        battery = battery-5;//收到消息，电量-5
+       if(check_battery_change()!=1)
+       {
+	send_battery_info();
+       }
        if(len == sizeof(energymessage_t))
        {
            new_packet = (control_queue_receive_t*)malloc(sizeof(control_queue_receive_t));
@@ -695,34 +862,7 @@ event void Timer1.fired()
      }
   }
 
-  event void MilliTimer.fired(){
-         //atomic{
 
-  	   if(isrunning == TRUE && receiving == FALSE)
-  	   {
-
-  	   		control_queue_entry_t* new_packet = (control_queue_entry_t*)malloc(sizeof(control_queue_entry_t));
-			new_packet->e_message = (energymessage_t*)malloc(sizeof(energymessage_t));
-			new_packet->e_message-> energy= battery;
-			new_packet->f_message=NULL;
-			new_packet->b_message = NULL;	
-			new_packet->classify = 1;
-			//printf("battery is %u\n",battery);
-			if(call SendQueue.enqueue(new_packet)==SUCCESS)//这里可能将会出现问题
-			{
-				//post senddatatask();
-				if(post senddatatask()!=SUCCESS)
-		     		{
-		    			dbg("Test1","gg!\n");
-		    		}
-			}
-			else
-			{
-				dbg("Test1","shit!");
-			}
-  	   }
-       // }
-  }
 
 }
 
