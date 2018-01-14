@@ -8,7 +8,7 @@ from tinyos.tossim.TossimApp import *
 n = NescApp()
 t = Tossim(n.variables.variables())
 r = t.radio()
-f = open("topo.txt", "r")                           #simulation topology file
+f = open("topo25.txt", "r")                           #simulation topology file
 
 lines = f.readlines()
 for line in lines:
@@ -26,11 +26,11 @@ for line in lines:
   str = line.strip()
   if (str != ""):
     val = int(str)
-    for i in range(0, 4):
+    for i in range(0, 25):
       t.getNode(i).addNoiseTraceReading(val) ##给每个节点增加噪声
 
 
-for i in range(0, 4):
+for i in range(0, 25):
   print "Creating noise model for ",i;
   t.getNode(i).createNoiseModel()
   
@@ -40,12 +40,12 @@ v = m.getVariable("RadioCountToLedsC.counter")
 '''
 #while(v.getData()<10):
  # t.runNextEvent()
-for i in range(0,4):
+for i in range(0,25):
     t.getNode(i).bootAtTime(i*100000)
 
 t.runNextEvent();
 time = t.time()
-while(time+1000000000000>t.time()):    # simulation time
+while(time+3000000000000>t.time()):    # simulation time
      t.runNextEvent()
 ##flg = 0;
 '''

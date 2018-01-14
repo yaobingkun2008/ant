@@ -77,8 +77,9 @@ implementation
       	  //其他要初始化的。。。。。。
       	  testnum = -1;
       	  receiving = FALSE;
+
               //call TimerDebug.startPeriodic(250);
-              if(TOS_NODE_ID==0)
+              if(TOS_NODE_ID!=DEST_NODE)
               {
               	call Timer1.startOneShot(4000);
               }
@@ -298,19 +299,18 @@ uint8_t check_battery_change()//there may be problem
 		uint16_t r  = call Random.rand16();
 		r = r%10;
 		r = r+10;
-		dbg("Test1","busy!\n");
+		//dbg("Test1","busy!\n");
 		call RetxmitTimer.startOneShot(r);
         		return;
 	}
 	else
 	{
 		control_queue_entry_t* pac_send = call SendQueue.head();
-
 		energymessage_t* btrpkt = NULL;
     		forwardant_t* btrpkt2 = NULL;
     		backwardant_t* btrpkt3 = NULL;
-              uint8_t h = -1;
-              uint8_t j;
+              	uint8_t h = -1;
+              	uint8_t j;
     		if(pac_send!=NULL)
     		{
 	    		if(pac_send->classify==1)//发送电池信息广播包
@@ -367,7 +367,7 @@ uint8_t check_battery_change()//there may be problem
 			            		{
 			            			if(TOS_NODE_ID==0)
 				            		{
-				            			dbg("Test1","send forward antaaaaa %u.%u\n",TOS_NODE_ID,btrpkt2->seqno);
+				            			//dbg("Test1","send forward antaaaaa %u.%u\n",TOS_NODE_ID,btrpkt2->seqno);
 				            		}
 			            			flag = 2;
 			            			busy = TRUE;
@@ -434,35 +434,34 @@ uint8_t check_battery_change()//there may be problem
 			}
 			else if(pac_send->classify == 3)//如果是后向蚂蚁,包括转发和始发
 			{
-                            uint16_t nexthop = pac_send->b_message->visit[0];//下一跳永远是第一个
+		                            uint16_t nexthop = pac_send->b_message->visit[0];//下一跳永远是第一个
+		                            //dbg("Test1","backward:the next hop is %u",nexthop);
 				btrpkt3 = (backwardant_t*)(call Packet.getPayload(&pkt3,NULL));
-                            btrpkt3->hop = (pac_send->b_message->hop)+1;
-                            btrpkt3->seqno = pac_send->b_message->seqno;
-                            btrpkt3->roadlength = pac_send->b_message->roadlength;
-                            
-
-                            for(j=1;j<1+(btrpkt3->roadlength)-(btrpkt3->hop);j++)
-                            {
-                                  h++;
-                                  btrpkt3->visit[h] = pac_send->b_message->visit[j];
-                            }
-                            if(call BeaconSend.send(nexthop,&pkt3,sizeof(backwardant_t))==SUCCESS)
-                            {//广播
-                                    flag = 3;//表示发送的是后向蚂蚁
-                                    busy = TRUE;
-                            }
-                            else//发送不成功，重发
-                            {
-                                    dbg("Test1","send failed!\n");
-                                    if(post senddatatask()!=SUCCESS)
-                                    {
-                                            dbg("Test1","gg!\n");
-                                    }
-                            }
-                            return;
+		                            btrpkt3->hop = (pac_send->b_message->hop)+1;
+		                            btrpkt3->seqno = pac_send->b_message->seqno;
+		                            btrpkt3->roadlength = pac_send->b_message->roadlength;
+		                            for(j=1;j<1+(btrpkt3->roadlength)-(btrpkt3->hop);j++)
+		                            {
+		                                  h++;
+		                                  btrpkt3->visit[h] = pac_send->b_message->visit[j];
+		                            }
+		                            if(call BeaconSend.send(nexthop,&pkt3,sizeof(backwardant_t))==SUCCESS)
+		                            {//广播
+		                                    flag = 3;//表示发送的是后向蚂蚁
+		                                    busy = TRUE;
+		                            }
+		                            else//发送不成功，重发
+		                            {
+		                                    dbg("Test1","send failed!\n");
+		                                    if(post senddatatask()!=SUCCESS)
+		                                    {
+		                                            dbg("Test1","gg!\n");
+		                                    }
+		                            }
+		                            return;
 			}
 			else{
-				printf("wrong!\n");
+				dbg("Test1","wrong!\n");
 			}
 		}
 		else
@@ -495,7 +494,7 @@ void send_battery_info(){
       
  }
 
-  uint8_t findinroutingtable(am_addr_t neighbor)
+  uint8_t findinroutingtable(am_addr_t neighbor)//当有多个汇聚节点的时候，这里就不对了
   {
   	uint8_t i;
 /*
@@ -517,7 +516,7 @@ void send_battery_info(){
   task void Receivedatatask(){
         //atomic{
         	uint8_t idx;
-	 uint8_t k;
+	 int8_t k;
 	 control_queue_receive_t* pac_receive = call ReceiveQueue.head();
         	if(receiving == TRUE)
         	{
@@ -543,7 +542,8 @@ void send_battery_info(){
   			routing_table[idx].enabled = TRUE;
   			routing_table[idx].energy = a->energy;
   			routing_table[idx].dest = DEST_NODE;//汇聚节点为35
-  			routing_table[idx].phero = 100;//初始化信息素浓度
+  			routing_table[idx].phero = NEW_PHERO;//初始化信息素浓度
+  			routing_table[idx].hop = ANT_LIVE_TIME;//跳数
   			tableactive++;
   			call ReceiveQueue.dequeue();
   			return;
@@ -558,7 +558,7 @@ void send_battery_info(){
   			else if(routing_table[idx].enabled == FALSE && routing_table[idx].energy > 2)//wake up from sleeping
   			{
   				routing_table[idx].enabled = TRUE;
-  				routing_table[idx].phero = 100;//phero return to 100
+  				routing_table[idx].phero = BACK_PHERO;//信息素数值回到一个值，这个值是什么还要考虑
   			}
   			call ReceiveQueue.dequeue();
   			return;
@@ -580,21 +580,33 @@ void send_battery_info(){
 		      	uint8_t u = -1;
 		      	if(TOS_NODE_ID == a->dest)//如果前行蚂蚁到达汇聚节点，应该构建后向蚂蚁
 		      	{
-                            control_queue_entry_t* new_backward = NULL;
+                            		control_queue_entry_t* new_backward = NULL;
 		      		testnum++;
-		      		dbg("Test1","ARRIVED AT SINK NODE! @ %u.%u\n",a->visit[0],a->seqno);
-		      		
-		      		
+		      		//dbg("Test1","ARRIVED AT SINK NODE! @ %u.%u\n",a->visit[0],a->seqno);
 		      		new_backward = (control_queue_entry_t*)malloc(sizeof(control_queue_entry_t));
 				new_backward->b_message = (backwardant_t*)malloc(sizeof(backwardant_t));
 				new_backward->b_message->hop = 0;//初始定义为距离终点0跳
 				new_backward->b_message->seqno = backward_num;
-                            new_backward->b_message->roadlength = ANT_LIVE_TIME-(a-> ttl);
-				for(k=ANT_LIVE_TIME-(a->ttl)-1;k>=0;k--)
+                            		new_backward->b_message->roadlength = ANT_LIVE_TIME-(a-> ttl);
+                            		/*下面是为了查看0号节点目前生成的路径*/
+                            		if(a->visit[0]==0)
+                            		{
+                            			//dbg("Test1","the ttl is:%u\n",a->ttl);
+                            			dbg("Test1","the road of MOTE 0 is: ");
+                            			for(k = 0;k<ANT_LIVE_TIME - (a->ttl);k++)
+                            			{
+                            				//dbg("Test1","--------");
+                            				dbg("Test1"," %u",a->visit[k]);
+                            			}
+                            			dbg("Test1","\n");
+                            		}
+				for(k=ANT_LIVE_TIME-(a->ttl)-1;k>=0;k--)//这里出错了，无符号数是不能减到0以下的。
 		      		{
-		      			u++;
-		        			new_backward->b_message->visit[u] = a->visit[k];
+		      		       // dbg("Test1","%u\n",k);
+		      		        u++;
+		        		        new_backward->b_message->visit[u] = a->visit[k];
 		      		}
+		      		//dbg("Test1","haha\n");
 		      		new_backward->e_message = NULL;
 		      		new_backward->f_message = NULL;
 		      		new_backward->classify = 3;
@@ -602,13 +614,15 @@ void send_battery_info(){
 				{
 				       if(post senddatatask()!=SUCCESS)
 				       {
-				    			dbg("Test1","gg!\n");
+				    	dbg("Test1","gg!\n");
 				       }
 				       call ReceiveQueue.dequeue();
 		      		       return;
 				}
-				call ReceiveQueue.dequeue();
-		      		return;
+		      		else 
+		      		{
+		      			dbg("Test1","shit!\n");
+		      		}
 		      	}
 		      	else//应当转发，要加入发送队列
 		      	{
@@ -641,16 +655,62 @@ void send_battery_info(){
 				    	dbg("Test1","shit!");
 				    }
 		      	}
-
-
-		      }
-  	
+		  }
   	}
-  	else if(pac_receive->classify==3)
+  	else if(pac_receive->classify==3)//有两种可能性，一是中转，二是最终收到，但是都要先完成信息素的变化,然后再更新信息素，区别只是要不要转发
   	{
-                //continue...
-
-  		
+  		am_addr_t from;
+  		uint8_t k;
+              backwardant_t* a = (backwardant_t*)(pac_receive->payload);
+              from = call AMPacket.source(pac_receive->message);
+  		//先蒸发一定比例的信息素，这又个问题，要不要考虑已经休眠的节点？
+  		for(k=0;k<tableactive;k++)
+  		{
+  			routing_table[k].phero = routing_table[k].phero*REMAIN_RATIO/100;
+  		}
+  		//更新跳数和对应链路的信息素浓度，假如该节点已经休眠？
+  		idx = findinroutingtable(from);//当有两个汇聚节点的时候，这里就不对了
+  		//理论上来说，idx不可能存在找不到的情况，所以先不就这种情况作处理
+  		//更新信息素和跳数
+  		if(a->hop < routing_table[idx].hop)
+  		{
+  			routing_table[idx].hop = a->hop;
+  		}
+  		routing_table[idx].phero = routing_table[idx].phero + UPDATE_NUM/a->hop;
+  		if(a->hop == a->roadlength)//到达终点
+  		{
+  			call ReceiveQueue.dequeue();
+		      	return;
+  		}
+  		else//转发
+  		{
+  			control_queue_entry_t* new_backward = NULL;
+		      	new_backward = (control_queue_entry_t*)malloc(sizeof(control_queue_entry_t));
+			new_backward->b_message = (backwardant_t*)malloc(sizeof(backwardant_t));
+			new_backward->b_message->hop = a->hop;//初始定义为距离终点0跳
+			new_backward->b_message->seqno = a->seqno;
+                     new_backward->b_message->roadlength = a->roadlength;
+                     for(k = 0;k<(a->roadlength)-(a->hop);k++)
+		      	{
+		      		new_backward->b_message->visit[k] = a->visit[k];
+		      	}
+		      	new_backward->e_message = NULL;
+		      	new_backward->f_message = NULL;
+		      	new_backward->classify = 3;
+		      	if(call SendQueue.enqueue(new_backward)==SUCCESS)//入队
+			{
+				if(post senddatatask()!=SUCCESS)
+				{
+				    	dbg("Test1","gg!\n");
+				}
+				call ReceiveQueue.dequeue();
+		      		return;
+			}
+			else
+			{
+				dbg("Test1","shit!");
+			}
+  		}
   	}
 
 
@@ -683,7 +743,7 @@ void send_battery_info(){
 	}*/
 	//dbg("Test1","the length of sendqueue is %u @%u\n",call SendQueue.size(),TOS_NODE_ID);
 	//dbg("Test1","the length of receivequeue is %u @%u\n",call ReceiveQueue.size(),TOS_NODE_ID);
-	dbg("Test1","the tableactive is %u @%u\n",tableactive,TOS_NODE_ID);
+	//dbg("Test1","the tableactive is %u @%u\n",tableactive,TOS_NODE_ID);
 	if(TOS_NODE_ID==DEST_NODE)
 	{
 		//dbg("Test1","the receivenum is %u\n",testnum);
@@ -703,7 +763,7 @@ event void Timer1.fired()
 	 if(TOS_NODE_ID!=DEST_NODE)
         	 {
         	               forward_num++;
-        	               //dbg("Test1","send forward ant %u.%u\n",TOS_NODE_ID,forward_num);
+        	            //   dbg("Test1","send forward ant %u.%u\n",TOS_NODE_ID,forward_num);
 		  new_forward = (control_queue_entry_t*)malloc(sizeof(control_queue_entry_t));
 		  new_forward->f_message = (forwardant_t*)malloc(sizeof(forwardant_t));
 		  new_forward->f_message->dest = DEST_NODE;//这里默认为35号节点
@@ -732,8 +792,7 @@ event void Timer1.fired()
 }
 
   event void BeaconSend.sendDone(message_t* msg,error_t error){//maybe need acks
-  	  //dbg("Test1","flag=%u",flag);
-	  uint8_t k;
+         uint8_t k;
          if(flag ==3)
          {
               if(&pkt3 == msg)
@@ -774,15 +833,15 @@ event void Timer1.fired()
 	  	if(&pkt2 == msg)
 	  	{
 	  		
-	  		   if(TOS_NODE_ID==0)
+	  		/*   if(TOS_NODE_ID==0)
 			  {
 				dbg("Test1","send forward ant %u\n",forward_num);
-			  }
-			if(TOS_NODE_ID==1 || TOS_NODE_ID ==2)
+			  }*/
+			/*if(TOS_NODE_ID==1 || TOS_NODE_ID ==2)
 			{
 				sendnum++;
 				dbg("Test1","NODE %u send %u\n",TOS_NODE_ID,sendnum);
-			}
+			}*/
 			   call SendQueue.dequeue();//发送成功之后再出队
 			   battery = battery-5;//每发送一个，电量-5
 			   if(check_battery_change()!=1)
@@ -808,7 +867,7 @@ event void Timer1.fired()
 				   post_fail = j;
 			   }
 			
-			   if(TOS_NODE_ID==0)
+			   if(TOS_NODE_ID!=DEST_NODE)
 			   {
 			   	call Timer1.startOneShot(1800);//start the next period
 			   }
@@ -872,7 +931,7 @@ event void MilliTimer.fired()
   event message_t* BeaconReceive.receive(message_t* msg,void* payload,uint8_t len)//接收，并执行任务
   {
           receiving = TRUE;
-
+          //dbg("Test1","%u\n",len);
      atomic{
                     control_queue_receive_t* new_packet = NULL;
                      
@@ -882,7 +941,7 @@ event void MilliTimer.fired()
                      battery = battery-5;//收到消息，电量-5
                      if(check_battery_change()!=1)
                      {
-              	           send_battery_info();
+              	 send_battery_info();
                      }
                      if(len == sizeof(energymessage_t))
                      {
@@ -890,11 +949,11 @@ event void MilliTimer.fired()
                      }
                      else if(len==sizeof(forwardant_t))
                      {
-                          if(TOS_NODE_ID==1 || TOS_NODE_ID==2)
+                          /*if(TOS_NODE_ID==1 || TOS_NODE_ID==2)
                           {
                                 receiveantnum++;
                                 dbg("Test1","NODE %u receive forward ant %u\n",TOS_NODE_ID,receiveantnum);
-                          }
+                          }*/
                           new_packet->classify = 2;
                      }
                      else if(len == sizeof(backwardant_t))

@@ -4,11 +4,16 @@
 #include <AM.h>
 enum{
      TIME_FOR_BLINK = 500,
-     DEST_NODE = 3,//汇聚节点
+     DEST_NODE = 24,//汇聚节点
      ANT_LIVE_TIME = 12,//前行蚂蚁生存时间
      PHERO_BETA = 2,//信息素指数（暂定）
      ENERGY_BETA = 4,//能量指数（暂定）
      INVA_ADDR = -1,
+     REMAIN_RATIO = 20,//信息素剩余比率
+     UPDATE_NUM = 1000,//更新信息素系数
+     NEW_PHERO = 10000,//最初信息素浓度
+     BACK_PHERO = 5000,//节点重新加入时的信息素浓度
+
 };//这个优于define指令
 
 typedef struct {   //路由表
@@ -17,6 +22,7 @@ typedef struct {   //路由表
   uint16_t energy;	//邻居的剩余能量，满值是10000
   am_addr_t dest;
   uint16_t phero;
+  uint8_t hop;//当前节点到终点的距离
 } routing_table_entry;//路由表数据项
 
 typedef nx_struct energymessage_t {	//向周围邻居报告能量情形的结构体

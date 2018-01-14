@@ -797,7 +797,7 @@ extern void *malloc(size_t __size) __attribute((__leaf__)) __attribute((__nothro
 #line 483
 extern void free(void *__ptr) __attribute((__leaf__)) __attribute((__nothrow__)) ;
 #line 742
-typedef int (*__compar_fn_t)(const void *arg_0x2b5f3415acf8, const void *arg_0x2b5f34159020);
+typedef int (*__compar_fn_t)(const void *arg_0x2b1a98996cf8, const void *arg_0x2b1a98995020);
 #line 780
 __extension__ 
 #line 797
@@ -815,7 +815,7 @@ extern double sqrt(double __x) __attribute((__leaf__)) __attribute((__nothrow__)
 #line 184
 extern double floor(double __x) __attribute((__leaf__)) __attribute((__nothrow__)) __attribute((const)) ;
 #line 250
-extern double erfc(double arg_0x2b5f341db618) __attribute((__leaf__)) __attribute((__nothrow__)) ;
+extern double erfc(double arg_0x2b1a98a17618) __attribute((__leaf__)) __attribute((__nothrow__)) ;
 #line 326
 __extension__ 
 
@@ -1215,8 +1215,8 @@ typedef struct hashtable hashtable_t;
 #line 78
 struct hashtable *
 create_hashtable(unsigned int minsize, 
-unsigned int (*hashfunction)(void *arg_0x2b5f3441c8e8), 
-int (*key_eq_fn)(void *arg_0x2b5f3441b0c8, void *arg_0x2b5f3441b368));
+unsigned int (*hashfunction)(void *arg_0x2b1a98c588e8), 
+int (*key_eq_fn)(void *arg_0x2b1a98c570c8, void *arg_0x2b1a98c57368));
 #line 103
 #line 102
 int 
@@ -1829,7 +1829,7 @@ struct tm;
 
 struct tm;
 # 46 "/opt/tinyos-2.1.2/tos/lib/tossim/randomlib.h"
-static inline void RandomInitialise(int arg_0x2b5f3462c610, int arg_0x2b5f3462c878);
+static inline void RandomInitialise(int arg_0x2b1a98e68610, int arg_0x2b1a98e68878);
 static double RandomUniform(void );
 # 51 "/opt/tinyos-2.1.2/tos/lib/tossim/sim_noise.c"
 int numCase1 = 0;
@@ -2209,11 +2209,15 @@ TMicro;
 # 5 "ant.h"
 enum __nesc_unnamed4284 {
   TIME_FOR_BLINK = 500, 
-  DEST_NODE = 3, 
+  DEST_NODE = 24, 
   ANT_LIVE_TIME = 12, 
   PHERO_BETA = 2, 
   ENERGY_BETA = 4, 
-  INVA_ADDR = -1
+  INVA_ADDR = -1, 
+  REMAIN_RATIO = 20, 
+  UPDATE_NUM = 1000, 
+  NEW_PHERO = 10000, 
+  BACK_PHERO = 5000
 };
 
 
@@ -2222,18 +2226,21 @@ enum __nesc_unnamed4284 {
 
 
 
-#line 14
+
+
+#line 19
 typedef struct __nesc_unnamed4285 {
   am_addr_t neighbor;
   bool enabled;
   uint16_t energy;
   am_addr_t dest;
   uint16_t phero;
+  uint8_t hop;
 } routing_table_entry;
 
 
 
-#line 22
+#line 28
 typedef nx_struct energymessage_t {
   nx_uint8_t energy;
 } __attribute__((packed)) energymessage_t;
@@ -2243,7 +2250,7 @@ typedef nx_struct energymessage_t {
 
 
 
-#line 26
+#line 32
 typedef nx_struct __nesc_unnamed4286 {
   nx_uint16_t dest;
   nx_uint8_t ttl;
@@ -2257,7 +2264,7 @@ typedef nx_struct __nesc_unnamed4286 {
 
 
 
-#line 33
+#line 39
 typedef nx_struct __nesc_unnamed4287 {
 
   nx_uint8_t hop;
@@ -2271,7 +2278,7 @@ typedef nx_struct __nesc_unnamed4287 {
 
 
 
-#line 41
+#line 47
 typedef struct __nesc_unnamed4288 {
   uint8_t classify;
   energymessage_t *e_message;
@@ -2283,7 +2290,7 @@ typedef struct __nesc_unnamed4288 {
 
 
 
-#line 48
+#line 54
 typedef struct __nesc_unnamed4289 {
   uint8_t classify;
   message_t *message;
@@ -2296,7 +2303,7 @@ typedef struct __nesc_unnamed4289 {
 
 
 
-#line 54
+#line 60
 typedef nx_struct __nesc_unnamed4290 {
   nx_am_addr_t dest;
   nx_am_addr_t origin;
@@ -3745,7 +3752,7 @@ typedef uint16_t RandomMlcgC$SeedInit$parameter;
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static error_t TossimActiveMessageC$AMSend$send(
 # 47 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b5f34787878, 
+am_id_t arg_0x2b1a98fc2878, 
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 am_addr_t addr, 
 #line 71
@@ -3768,7 +3775,7 @@ message_t *
 
 TossimActiveMessageC$Snoop$default$receive(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b5f347b5670, 
+am_id_t arg_0x2b1a98ff0670, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -3815,7 +3822,7 @@ message_t *
 
 TossimActiveMessageC$Receive$default$receive(
 # 48 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b5f347b6a90, 
+am_id_t arg_0x2b1a98ff1a90, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -3952,11 +3959,11 @@ static error_t MeasureClockC$Init$init(void );
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static error_t SimSchedulerBasicP$TaskBasic$postTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2b5f3472d020);
+uint8_t arg_0x2b1a98f69020);
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static void SimSchedulerBasicP$TaskBasic$default$runTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2b5f3472d020);
+uint8_t arg_0x2b1a98f69020);
 # 57 "/opt/tinyos-2.1.2/tos/interfaces/Scheduler.nc"
 static void SimSchedulerBasicP$Scheduler$init(void );
 
@@ -4007,7 +4014,7 @@ error_t error);
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$sendDone(
 # 48 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-am_id_t arg_0x2b5f34c3d488, 
+am_id_t arg_0x2b1a99478488, 
 # 103 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 message_t * msg, 
 
@@ -4020,7 +4027,7 @@ error_t error);
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$send(
 # 46 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-uint8_t arg_0x2b5f34c3e318, 
+uint8_t arg_0x2b1a99479318, 
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -4034,7 +4041,7 @@ uint8_t len);
 #line 100
 static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone(
 # 46 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-uint8_t arg_0x2b5f34c3e318, 
+uint8_t arg_0x2b1a99479318, 
 # 96 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -4159,11 +4166,11 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$fire
 #line 83
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2b5f3504ec28);
+uint8_t arg_0x2b1a9987bc28);
 # 73 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startOneShot(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2b5f3504ec28, 
+uint8_t arg_0x2b1a9987bc28, 
 # 73 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 uint32_t dt);
 # 82 "/opt/tinyos-2.1.2/tos/lib/timer/Counter.nc"
@@ -4247,7 +4254,7 @@ static am_addr_t TossimActiveMessageC$amAddress(void );
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static void TossimActiveMessageC$AMSend$sendDone(
 # 47 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b5f34787878, 
+am_id_t arg_0x2b1a98fc2878, 
 # 103 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 message_t * msg, 
 
@@ -4266,7 +4273,7 @@ message_t *
 
 TossimActiveMessageC$Snoop$receive(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b5f347b5670, 
+am_id_t arg_0x2b1a98ff0670, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -4285,7 +4292,7 @@ message_t *
 
 TossimActiveMessageC$Receive$receive(
 # 48 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b5f347b6a90, 
+am_id_t arg_0x2b1a98ff1a90, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -4344,7 +4351,7 @@ static inline void TossimActiveMessageC$AMPacket$setDestination(message_t *amsg,
 
 
 
-static inline am_addr_t TossimActiveMessageC$AMPacket$source(message_t *amsg);
+static am_addr_t TossimActiveMessageC$AMPacket$source(message_t *amsg);
 
 
 
@@ -4732,7 +4739,7 @@ int sim_main_start_mote(void )   ;
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static void SimSchedulerBasicP$TaskBasic$runTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2b5f3472d020);
+uint8_t arg_0x2b1a98f69020);
 
 
 
@@ -4951,7 +4958,7 @@ static inline void /*antAppC.SendControl.SenderC.AMQueueEntryP*/AMQueueEntryP$0$
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$send(
 # 48 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-am_id_t arg_0x2b5f34c3d488, 
+am_id_t arg_0x2b1a99478488, 
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 am_addr_t addr, 
 #line 71
@@ -4968,7 +4975,7 @@ uint8_t len);
 # 100 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(
 # 46 "/opt/tinyos-2.1.2/tos/system/AMQueueImplP.nc"
-uint8_t arg_0x2b5f34c3e318, 
+uint8_t arg_0x2b1a99479318, 
 # 96 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -5145,19 +5152,19 @@ static am_addr_t antC$AMPacket$source(
 message_t * amsg);
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static error_t antC$Receivedatatask$postTask(void );
-# 293 "antC.nc"
+# 294 "antC.nc"
 enum antC$__nesc_unnamed4342 {
-#line 293
+#line 294
   antC$senddatatask = 5U
 };
-#line 293
+#line 294
 typedef int antC$__nesc_sillytask_senddatatask[antC$senddatatask];
-#line 517
+#line 516
 enum antC$__nesc_unnamed4343 {
-#line 517
+#line 516
   antC$Receivedatatask = 6U
 };
-#line 517
+#line 516
 typedef int antC$__nesc_sillytask_Receivedatatask[antC$Receivedatatask];
 #line 26
 routing_table_entry antC$routing_table[1000][15];
@@ -5188,7 +5195,7 @@ static inline void antC$Boot$booted(void );
 
 
 static inline void antC$AMControl$startDone(error_t err);
-#line 92
+#line 93
 static inline void antC$AMControl$stopDone(error_t err);
 
 
@@ -5196,19 +5203,19 @@ static inline void antC$AMControl$stopDone(error_t err);
 
 
 static uint8_t antC$check_battery_change(void );
-#line 230
+#line 231
 static inline bool antC$findin(uint8_t ttl, uint8_t visited[12], uint8_t neighbor);
-#line 245
+#line 246
 static inline am_addr_t antC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE_TIME], uint16_t destin);
-#line 293
+#line 294
 static inline void antC$senddatatask$runTask(void );
-#line 476
+#line 475
 static void antC$send_battery_info(void );
-#line 498
-static inline uint8_t antC$findinroutingtable(am_addr_t neighbor);
-#line 517
+#line 497
+static uint8_t antC$findinroutingtable(am_addr_t neighbor);
+#line 516
 static inline void antC$Receivedatatask$runTask(void );
-#line 664
+#line 724
 static inline void antC$RetxmitTimer$fired(void );
 
 
@@ -5217,11 +5224,11 @@ static inline void antC$RetxmitTimer$fired(void );
 
 
 static inline void antC$TimerDebug$fired(void );
-#line 697
+#line 757
 static inline void antC$Timer1$fired(void );
-#line 734
+#line 794
 static void antC$BeaconSend$sendDone(message_t *msg, error_t error);
-#line 868
+#line 927
 static inline void antC$MilliTimer$fired(void );
 
 
@@ -5549,7 +5556,7 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$stop
 
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2b5f3504ec28);
+uint8_t arg_0x2b1a9987bc28);
 #line 71
 enum /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$__nesc_unnamed4346 {
 #line 71
@@ -6130,13 +6137,13 @@ inline static error_t antC$ReceiveQueue$enqueue(antC$ReceiveQueue$t  newVal){
 #line 90
 }
 #line 90
-# 872 "antC.nc"
+# 931 "antC.nc"
 static inline message_t *antC$BeaconReceive$receive(message_t *msg, void *payload, uint8_t len)
 {
   antC$receiving[sim_node()] = TRUE;
 
   { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 876
+#line 935
     {
       control_queue_receive_t *new_packet = (void *)0;
 
@@ -6153,25 +6160,25 @@ static inline message_t *antC$BeaconReceive$receive(message_t *msg, void *payloa
           new_packet->classify = 1;
         }
       else {
-#line 891
+#line 950
         if (len == sizeof(forwardant_t )) 
           {
-            if (TOS_NODE_ID == 1 || TOS_NODE_ID == 2) 
-              {
-                antC$receiveantnum[sim_node()]++;
-                sim_log_debug(189U, "Test1", "NODE %u receive forward ant %u\n", TOS_NODE_ID, antC$receiveantnum[sim_node()]);
-              }
+
+
+
+
+
             new_packet->classify = 2;
           }
         else {
-#line 900
+#line 959
           if (len == sizeof(backwardant_t )) 
             {
               new_packet->classify = 3;
             }
           }
         }
-#line 904
+#line 963
       if (antC$ReceiveQueue$enqueue(new_packet) == SUCCESS) 
         {
           if (antC$Receivedatatask$postTask() != SUCCESS) 
@@ -6186,18 +6193,18 @@ static inline message_t *antC$BeaconReceive$receive(message_t *msg, void *payloa
       antC$receiving[sim_node()] = FALSE;
       {
         nx_struct message_t *__nesc_temp = 
-#line 916
+#line 975
         msg;
 
         {
-#line 916
+#line 975
           __nesc_atomic_end(__nesc_atomic); 
-#line 916
+#line 975
           return __nesc_temp;
         }
       }
     }
-#line 919
+#line 978
     __nesc_atomic_end(__nesc_atomic); }
 }
 
@@ -6209,13 +6216,13 @@ static inline message_t *TossimActiveMessageC$Receive$default$receive(am_id_t id
 }
 
 # 78 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
-inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2b5f347b6a90, message_t * msg, void * payload, uint8_t len){
+inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2b1a98ff1a90, message_t * msg, void * payload, uint8_t len){
 #line 78
   nx_struct message_t *__nesc_result;
 #line 78
 
 #line 78
-  switch (arg_0x2b5f347b6a90) {
+  switch (arg_0x2b1a98ff1a90) {
 #line 78
     case 6:
 #line 78
@@ -6225,7 +6232,7 @@ inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2b5
 #line 78
     default:
 #line 78
-      __nesc_result = TossimActiveMessageC$Receive$default$receive(arg_0x2b5f347b6a90, msg, payload, len);
+      __nesc_result = TossimActiveMessageC$Receive$default$receive(arg_0x2b1a98ff1a90, msg, payload, len);
 #line 78
       break;
 #line 78
@@ -6294,13 +6301,13 @@ static inline message_t *TossimActiveMessageC$Snoop$default$receive(am_id_t id, 
 }
 
 # 78 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
-inline static message_t * TossimActiveMessageC$Snoop$receive(am_id_t arg_0x2b5f347b5670, message_t * msg, void * payload, uint8_t len){
+inline static message_t * TossimActiveMessageC$Snoop$receive(am_id_t arg_0x2b1a98ff0670, message_t * msg, void * payload, uint8_t len){
 #line 78
   nx_struct message_t *__nesc_result;
 #line 78
 
 #line 78
-    __nesc_result = TossimActiveMessageC$Snoop$default$receive(arg_0x2b5f347b5670, msg, payload, len);
+    __nesc_result = TossimActiveMessageC$Snoop$default$receive(arg_0x2b1a98ff0670, msg, payload, len);
 #line 78
 
 #line 78
@@ -6460,7 +6467,8 @@ static inline void antC$AMControl$startDone(error_t err)
       antC$testnum[sim_node()] = -1;
       antC$receiving[sim_node()] = FALSE;
 
-      if (TOS_NODE_ID == 0) 
+
+      if (TOS_NODE_ID != DEST_NODE) 
         {
           antC$Timer1$startOneShot(4000);
         }
@@ -6486,9 +6494,9 @@ static inline void TossimPacketModelC$startDoneTask$runTask(void )
   TossimPacketModelC$Control$startDone(SUCCESS);
 }
 
-# 92 "antC.nc"
+# 93 "antC.nc"
 static inline void antC$AMControl$stopDone(error_t err)
-#line 92
+#line 93
 {
 }
 
@@ -6541,9 +6549,9 @@ static __inline  int8_t __nesc_hton_int8(void * target, int8_t value)
 }
 
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
-inline static void TossimActiveMessageC$AMSend$sendDone(am_id_t arg_0x2b5f34787878, message_t * msg, error_t error){
+inline static void TossimActiveMessageC$AMSend$sendDone(am_id_t arg_0x2b1a98fc2878, message_t * msg, error_t error){
 #line 110
-  /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$sendDone(arg_0x2b5f34787878, msg, error);
+  /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$sendDone(arg_0x2b1a98fc2878, msg, error);
 #line 110
 }
 #line 110
@@ -6604,9 +6612,9 @@ static inline void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone
 }
 
 # 100 "/opt/tinyos-2.1.2/tos/interfaces/Send.nc"
-inline static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(uint8_t arg_0x2b5f34c3e318, message_t * msg, error_t error){
+inline static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(uint8_t arg_0x2b1a99479318, message_t * msg, error_t error){
 #line 100
-  switch (arg_0x2b5f34c3e318) {
+  switch (arg_0x2b1a99479318) {
 #line 100
     case 0U:
 #line 100
@@ -6616,7 +6624,7 @@ inline static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$sendDone(uint8_t
 #line 100
     default:
 #line 100
-      /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone(arg_0x2b5f34c3e318, msg, error);
+      /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$Send$default$sendDone(arg_0x2b1a99479318, msg, error);
 #line 100
       break;
 #line 100
@@ -6783,13 +6791,13 @@ inline static uint16_t antC$Random$rand16(void ){
 #line 52
 }
 #line 52
-# 230 "antC.nc"
+# 231 "antC.nc"
 static inline bool antC$findin(uint8_t ttl, uint8_t visited[12], uint8_t neighbor)
 {
   bool isin = FALSE;
   int k;
 
-#line 234
+#line 235
   for (k = 0; k < 12 - ttl; k++) 
     {
       if (visited[k] == neighbor) 
@@ -6802,7 +6810,7 @@ static inline bool antC$findin(uint8_t ttl, uint8_t visited[12], uint8_t neighbo
   return isin;
 }
 
-#line 245
+#line 246
 static inline am_addr_t antC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE_TIME], uint16_t destin)
 {
   uint32_t bignum = 0;
@@ -6811,7 +6819,7 @@ static inline am_addr_t antC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE
   uint8_t select[15];
   uint8_t s_num;
 
-#line 252
+#line 253
   for (k = 0; k < antC$tableactive[sim_node()]; k++) 
     {
       if (antC$routing_table[sim_node()][k].enabled == TRUE) 
@@ -6822,7 +6830,7 @@ static inline am_addr_t antC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE
                 {
                   uint32_t c = antC$routing_table[sim_node()][k].energy * antC$routing_table[sim_node()][k].phero;
 
-#line 261
+#line 262
                   if (c > bignum) 
                     {
                       g = 1;
@@ -6830,7 +6838,7 @@ static inline am_addr_t antC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE
                       bignum = c;
                     }
                   else {
-#line 267
+#line 268
                     if (bignum == c) 
                       {
                         g++;
@@ -6842,25 +6850,25 @@ static inline am_addr_t antC$find_next_hop(uint8_t ttl, uint8_t visited[ANT_LIVE
             }
         }
     }
-#line 277
+#line 278
   if (g == 0) 
     {
       return 99;
     }
   else {
-#line 281
+#line 282
     if (g == 1) 
       {
         return select[0];
       }
     else {
-#line 285
+#line 286
       if (g > 1) 
         {
           uint16_t r = antC$Random$rand16();
           uint8_t s_num = r % g;
 
-#line 289
+#line 290
           return select[s_num];
         }
       }
@@ -6912,29 +6920,28 @@ inline static void antC$RetxmitTimer$startOneShot(uint32_t dt){
 #line 73
 }
 #line 73
-# 293 "antC.nc"
+# 294 "antC.nc"
 static inline void antC$senddatatask$runTask(void )
-#line 293
+#line 294
 {
 
   uint8_t k = 0;
 
-#line 296
+#line 297
   if (antC$busy[sim_node()] == TRUE || antC$receiving[sim_node()] == TRUE) 
     {
       uint16_t r = antC$Random$rand16();
 
-#line 299
+#line 300
       r = r % 10;
       r = r + 10;
-      sim_log_debug(163U, "Test1", "busy!\n");
+
       antC$RetxmitTimer$startOneShot(r);
       return;
     }
   else 
     {
       control_queue_entry_t *pac_send = antC$SendQueue$head();
-
       energymessage_t *btrpkt = (void *)0;
       forwardant_t *btrpkt2 = (void *)0;
       backwardant_t *btrpkt3 = (void *)0;
@@ -6963,10 +6970,10 @@ static inline void antC$senddatatask$runTask(void )
                 }
               else 
                 {
-                  sim_log_debug(164U, "Test1", "send failed!\n");
+                  sim_log_debug(163U, "Test1", "send failed!\n");
                   if (antC$senddatatask$postTask() != SUCCESS) 
                     {
-                      sim_log_debug(165U, "Test1", "gg!\n");
+                      sim_log_debug(164U, "Test1", "gg!\n");
                     }
                 }
               return;
@@ -7000,8 +7007,8 @@ static inline void antC$senddatatask$runTask(void )
                       {
                         if (TOS_NODE_ID == 0) 
                           {
-                            sim_log_debug(166U, "Test1", "send forward antaaaaa %u.%u\n", TOS_NODE_ID, __nesc_ntoh_uint8(btrpkt2->seqno.nxdata));
                           }
+
                         antC$flag[sim_node()] = 2;
                         antC$busy[sim_node()] = TRUE;
                       }
@@ -7013,10 +7020,10 @@ static inline void antC$senddatatask$runTask(void )
 
 
                       {
-                        sim_log_debug(167U, "Test1", "send failed!\n");
+                        sim_log_debug(165U, "Test1", "send failed!\n");
                         if (antC$senddatatask$postTask() != SUCCESS) 
                           {
-                            sim_log_debug(168U, "Test1", "gg!\n");
+                            sim_log_debug(166U, "Test1", "gg!\n");
                           }
                       }
                     return;
@@ -7027,7 +7034,7 @@ static inline void antC$senddatatask$runTask(void )
 
                     if (nexthop == 99) 
                       {
-                        sim_log_debug(169U, "Test1", "%u nexthop not found!\n", __nesc_ntoh_uint8(btrpkt2->seqno.nxdata));
+                        sim_log_debug(167U, "Test1", "%u nexthop not found!\n", __nesc_ntoh_uint8(btrpkt2->seqno.nxdata));
                         antC$SendQueue$dequeue();
                         return;
                       }
@@ -7051,11 +7058,11 @@ static inline void antC$senddatatask$runTask(void )
 
 
                           {
-                            sim_log_debug(170U, "Test1", "send failed!\n");
+                            sim_log_debug(168U, "Test1", "send failed!\n");
 
                             if (antC$senddatatask$postTask() != SUCCESS) 
                               {
-                                sim_log_debug(171U, "Test1", "gg!\n");
+                                sim_log_debug(169U, "Test1", "gg!\n");
                               }
                           }
                         return;
@@ -7069,13 +7076,10 @@ static inline void antC$senddatatask$runTask(void )
                 {
                   uint16_t nexthop = __nesc_ntoh_uint16(pac_send->b_message->visit[0].nxdata);
 
-#line 438
                   btrpkt3 = (backwardant_t *)antC$Packet$getPayload(&antC$pkt3[sim_node()], (void *)0);
                   __nesc_hton_uint8(btrpkt3->hop.nxdata, __nesc_ntoh_uint8(pac_send->b_message->hop.nxdata) + 1);
                   __nesc_hton_uint8(btrpkt3->seqno.nxdata, __nesc_ntoh_uint8(pac_send->b_message->seqno.nxdata));
                   __nesc_hton_uint8(btrpkt3->roadlength.nxdata, __nesc_ntoh_uint8(pac_send->b_message->roadlength.nxdata));
-
-
                   for (j = 1; j < 1 + __nesc_ntoh_uint8(btrpkt3->roadlength.nxdata) - __nesc_ntoh_uint8(btrpkt3->hop.nxdata); j++) 
                     {
                       h++;
@@ -7088,22 +7092,22 @@ static inline void antC$senddatatask$runTask(void )
                     }
                   else 
                     {
-                      sim_log_debug(172U, "Test1", "send failed!\n");
+                      sim_log_debug(170U, "Test1", "send failed!\n");
                       if (antC$senddatatask$postTask() != SUCCESS) 
                         {
-                          sim_log_debug(173U, "Test1", "gg!\n");
+                          sim_log_debug(171U, "Test1", "gg!\n");
                         }
                     }
                   return;
                 }
               else {
-                  printf("wrong!\n");
+                  sim_log_debug(172U, "Test1", "wrong!\n");
                 }
               }
             }
         }
       else 
-#line 469
+#line 468
         {
           return;
         }
@@ -7148,43 +7152,6 @@ inline static error_t antC$SendQueue$enqueue(antC$SendQueue$t  newVal){
 #line 90
 }
 #line 90
-# 498 "antC.nc"
-static inline uint8_t antC$findinroutingtable(am_addr_t neighbor)
-{
-  uint8_t i;
-
-
-
-
-
-
-  for (i = 0; i < antC$tableactive[sim_node()]; i++) 
-    {
-      if (antC$routing_table[sim_node()][i].neighbor == neighbor) 
-        {
-          break;
-        }
-    }
-  return i;
-}
-
-# 65 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-static inline tossim_header_t *TossimActiveMessageC$getHeader(message_t *amsg)
-#line 65
-{
-  return (tossim_header_t *)(amsg->data - sizeof(tossim_header_t ));
-}
-
-#line 150
-static inline am_addr_t TossimActiveMessageC$AMPacket$source(message_t *amsg)
-#line 150
-{
-  tossim_header_t *header = TossimActiveMessageC$getHeader(amsg);
-
-#line 152
-  return __nesc_ntoh_uint16(header->src.nxdata);
-}
-
 # 88 "/opt/tinyos-2.1.2/tos/interfaces/AMPacket.nc"
 inline static am_addr_t antC$AMPacket$source(message_t * amsg){
 #line 88
@@ -7222,19 +7189,19 @@ inline static antC$ReceiveQueue$t  antC$ReceiveQueue$head(void ){
 #line 73
 }
 #line 73
-# 517 "antC.nc"
+# 516 "antC.nc"
 static inline void antC$Receivedatatask$runTask(void )
-#line 517
+#line 516
 {
 
   uint8_t idx;
-  uint8_t k;
+  int8_t k;
   control_queue_receive_t *pac_receive = antC$ReceiveQueue$head();
 
-#line 522
+#line 521
   if (antC$receiving[sim_node()] == TRUE) 
     {
-      sim_log_debug(176U, "Test1", "receiving busy!\n");
+      sim_log_debug(175U, "Test1", "receiving busy!\n");
       antC$Receivedatatask$postTask();
       return;
     }
@@ -7245,7 +7212,7 @@ static inline void antC$Receivedatatask$runTask(void )
       am_addr_t hellofrom;
       energymessage_t *a = (energymessage_t *)pac_receive->payload;
 
-#line 534
+#line 533
       hellofrom = antC$AMPacket$source(pac_receive->message);
       idx = antC$findinroutingtable(hellofrom);
       if (idx == 15) 
@@ -7254,13 +7221,14 @@ static inline void antC$Receivedatatask$runTask(void )
           return;
         }
       else {
-#line 541
+#line 540
         if (idx == antC$tableactive[sim_node()]) {
             antC$routing_table[sim_node()][idx].neighbor = hellofrom;
             antC$routing_table[sim_node()][idx].enabled = TRUE;
             antC$routing_table[sim_node()][idx].energy = __nesc_ntoh_uint8(a->energy.nxdata);
             antC$routing_table[sim_node()][idx].dest = DEST_NODE;
-            antC$routing_table[sim_node()][idx].phero = 100;
+            antC$routing_table[sim_node()][idx].phero = NEW_PHERO;
+            antC$routing_table[sim_node()][idx].hop = ANT_LIVE_TIME;
             antC$tableactive[sim_node()]++;
             antC$ReceiveQueue$dequeue();
             return;
@@ -7279,7 +7247,7 @@ static inline void antC$Receivedatatask$runTask(void )
                 if (antC$routing_table[sim_node()][idx].enabled == FALSE && antC$routing_table[sim_node()][idx].energy > 2) 
                   {
                     antC$routing_table[sim_node()][idx].enabled = TRUE;
-                    antC$routing_table[sim_node()][idx].phero = 100;
+                    antC$routing_table[sim_node()][idx].phero = BACK_PHERO;
                   }
                 }
 #line 563
@@ -7313,19 +7281,31 @@ static inline void antC$Receivedatatask$runTask(void )
 
 #line 584
                 antC$testnum[sim_node()]++;
-                sim_log_debug(177U, "Test1", "ARRIVED AT SINK NODE! @ %u.%u\n", __nesc_ntoh_uint16(a->visit[0].nxdata), __nesc_ntoh_uint8(a->seqno.nxdata));
-
 
                 new_backward = (control_queue_entry_t *)malloc(sizeof(control_queue_entry_t ));
                 new_backward->b_message = (backwardant_t *)malloc(sizeof(backwardant_t ));
                 __nesc_hton_uint8(new_backward->b_message->hop.nxdata, 0);
                 __nesc_hton_uint8(new_backward->b_message->seqno.nxdata, antC$backward_num[sim_node()]);
                 __nesc_hton_uint8(new_backward->b_message->roadlength.nxdata, ANT_LIVE_TIME - __nesc_ntoh_uint8(a->ttl.nxdata));
+
+                if (__nesc_ntoh_uint16(a->visit[0].nxdata) == 0) 
+                  {
+
+                    sim_log_debug(176U, "Test1", "the road of MOTE 0 is: ");
+                    for (k = 0; k < ANT_LIVE_TIME - __nesc_ntoh_uint8(a->ttl.nxdata); k++) 
+                      {
+
+                        sim_log_debug(177U, "Test1", " %u", __nesc_ntoh_uint16(a->visit[k].nxdata));
+                      }
+                    sim_log_debug(178U, "Test1", "\n");
+                  }
                 for (k = ANT_LIVE_TIME - __nesc_ntoh_uint8(a->ttl.nxdata) - 1; k >= 0; k--) 
                   {
+
                     u++;
                     __nesc_hton_uint16(new_backward->b_message->visit[u].nxdata, __nesc_ntoh_uint16(a->visit[k].nxdata));
                   }
+
                 new_backward->e_message = (void *)0;
                 new_backward->f_message = (void *)0;
                 new_backward->classify = 3;
@@ -7333,13 +7313,15 @@ static inline void antC$Receivedatatask$runTask(void )
                   {
                     if (antC$senddatatask$postTask() != SUCCESS) 
                       {
-                        sim_log_debug(178U, "Test1", "gg!\n");
+                        sim_log_debug(179U, "Test1", "gg!\n");
                       }
                     antC$ReceiveQueue$dequeue();
                     return;
                   }
-                antC$ReceiveQueue$dequeue();
-                return;
+                else 
+                  {
+                    sim_log_debug(180U, "Test1", "shit!\n");
+                  }
               }
             else 
               {
@@ -7362,23 +7344,78 @@ static inline void antC$Receivedatatask$runTask(void )
                   {
                     if (antC$senddatatask$postTask() != SUCCESS) 
                       {
-                        sim_log_debug(179U, "Test1", "gg!\n");
+                        sim_log_debug(181U, "Test1", "gg!\n");
                       }
                     antC$ReceiveQueue$dequeue();
                     return;
                   }
                 else 
                   {
-                    sim_log_debug(180U, "Test1", "shit!");
+                    sim_log_debug(182U, "Test1", "shit!");
                   }
               }
           }
       }
     else {
-
-
+#line 660
       if (pac_receive->classify == 3) 
         {
+          am_addr_t from;
+          uint8_t k;
+          backwardant_t *a = (backwardant_t *)pac_receive->payload;
+
+#line 665
+          from = antC$AMPacket$source(pac_receive->message);
+
+          for (k = 0; k < antC$tableactive[sim_node()]; k++) 
+            {
+              antC$routing_table[sim_node()][k].phero = antC$routing_table[sim_node()][k].phero * REMAIN_RATIO / 100;
+            }
+
+          idx = antC$findinroutingtable(from);
+
+
+          if (__nesc_ntoh_uint8(a->hop.nxdata) < antC$routing_table[sim_node()][idx].hop) 
+            {
+              antC$routing_table[sim_node()][idx].hop = __nesc_ntoh_uint8(a->hop.nxdata);
+            }
+          antC$routing_table[sim_node()][idx].phero = antC$routing_table[sim_node()][idx].phero + UPDATE_NUM / __nesc_ntoh_uint8(a->hop.nxdata);
+          if (__nesc_ntoh_uint8(a->hop.nxdata) == __nesc_ntoh_uint8(a->roadlength.nxdata)) 
+            {
+              antC$ReceiveQueue$dequeue();
+              return;
+            }
+          else 
+            {
+              control_queue_entry_t *new_backward = (void *)0;
+
+#line 688
+              new_backward = (control_queue_entry_t *)malloc(sizeof(control_queue_entry_t ));
+              new_backward->b_message = (backwardant_t *)malloc(sizeof(backwardant_t ));
+              __nesc_hton_uint8(new_backward->b_message->hop.nxdata, __nesc_ntoh_uint8(a->hop.nxdata));
+              __nesc_hton_uint8(new_backward->b_message->seqno.nxdata, __nesc_ntoh_uint8(a->seqno.nxdata));
+              __nesc_hton_uint8(new_backward->b_message->roadlength.nxdata, __nesc_ntoh_uint8(a->roadlength.nxdata));
+              for (k = 0; k < __nesc_ntoh_uint8(a->roadlength.nxdata) - __nesc_ntoh_uint8(a->hop.nxdata); k++) 
+                {
+                  __nesc_hton_uint16(new_backward->b_message->visit[k].nxdata, __nesc_ntoh_uint16(a->visit[k].nxdata));
+                }
+              new_backward->e_message = (void *)0;
+              new_backward->f_message = (void *)0;
+              new_backward->classify = 3;
+              if (antC$SendQueue$enqueue(new_backward) == SUCCESS) 
+                {
+                  if (antC$senddatatask$postTask() != SUCCESS) 
+                    {
+                      sim_log_debug(183U, "Test1", "gg!\n");
+                    }
+                  antC$ReceiveQueue$dequeue();
+                  return;
+                }
+              else 
+                {
+                  sim_log_debug(184U, "Test1", "shit!");
+                }
+            }
         }
       }
     }
@@ -7648,9 +7685,9 @@ static inline void SimSchedulerBasicP$TaskBasic$default$runTask(uint8_t id)
 }
 
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
-inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b5f3472d020){
+inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b1a98f69020){
 #line 75
-  switch (arg_0x2b5f3472d020) {
+  switch (arg_0x2b1a98f69020) {
 #line 75
     case TossimPacketModelC$startDoneTask:
 #line 75
@@ -7720,7 +7757,7 @@ inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b5f3472d0
 #line 75
     default:
 #line 75
-      SimSchedulerBasicP$TaskBasic$default$runTask(arg_0x2b5f3472d020);
+      SimSchedulerBasicP$TaskBasic$default$runTask(arg_0x2b1a98f69020);
 #line 75
       break;
 #line 75
@@ -7766,13 +7803,12 @@ inline static Atm128_TIFR_t /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAs
 #line 53
 }
 #line 53
-# 671 "antC.nc"
+# 731 "antC.nc"
 static inline void antC$TimerDebug$fired(void )
 {
   uint8_t i;
 
-#line 686
-  sim_log_debug(182U, "Test1", "the tableactive is %u @%u\n", antC$tableactive[sim_node()], TOS_NODE_ID);
+#line 747
   if (TOS_NODE_ID == DEST_NODE) 
     {
     }
@@ -7782,23 +7818,23 @@ static inline void antC$TimerDebug$fired(void )
     }
 }
 
-#line 664
+#line 724
 static inline void antC$RetxmitTimer$fired(void )
-#line 664
+#line 724
 {
   if (antC$senddatatask$postTask() != SUCCESS) 
     {
-      sim_log_debug(181U, "Test1", "gg!\n");
+      sim_log_debug(185U, "Test1", "gg!\n");
     }
 }
 
-#line 868
+#line 927
 static inline void antC$MilliTimer$fired(void )
 {
   antC$send_battery_info();
 }
 
-#line 697
+#line 757
 static inline void antC$Timer1$fired(void )
 {
 
@@ -7806,7 +7842,7 @@ static inline void antC$Timer1$fired(void )
     {
       control_queue_entry_t *new_forward = (void *)0;
 
-#line 703
+#line 763
       if (TOS_NODE_ID != DEST_NODE) 
         {
           antC$forward_num[sim_node()]++;
@@ -7825,17 +7861,17 @@ static inline void antC$Timer1$fired(void )
               if (antC$senddatatask$postTask() != SUCCESS) 
                 {
                   { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 720
+#line 780
                     {
                       antC$post_fail[sim_node()]++;
                     }
-#line 722
+#line 782
                     __nesc_atomic_end(__nesc_atomic); }
                 }
             }
           else 
             {
-              sim_log_debug(183U, "Test1", "shit!");
+              sim_log_debug(186U, "Test1", "shit!");
             }
         }
     }
@@ -7847,9 +7883,9 @@ static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$d
 }
 
 # 83 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
-inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(uint8_t arg_0x2b5f3504ec28){
+inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(uint8_t arg_0x2b1a9987bc28){
 #line 83
-  switch (arg_0x2b5f3504ec28) {
+  switch (arg_0x2b1a9987bc28) {
 #line 83
     case 0U:
 #line 83
@@ -7877,7 +7913,7 @@ inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$f
 #line 83
     default:
 #line 83
-      /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(arg_0x2b5f3504ec28);
+      /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(arg_0x2b1a9987bc28);
 #line 83
       break;
 #line 83
@@ -8259,7 +8295,14 @@ static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$startTi
   /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$updateFromTimer$postTask();
 }
 
-# 145 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
+# 65 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
+static inline tossim_header_t *TossimActiveMessageC$getHeader(message_t *amsg)
+#line 65
+{
+  return (tossim_header_t *)(amsg->data - sizeof(tossim_header_t ));
+}
+
+#line 145
 static inline void TossimActiveMessageC$AMPacket$setDestination(message_t *amsg, am_addr_t addr)
 #line 145
 {
@@ -8294,13 +8337,13 @@ inline static void /*antAppC.SendControl.SenderC.AMQueueEntryP*/AMQueueEntryP$0$
 }
 #line 162
 # 80 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
-inline static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$send(am_id_t arg_0x2b5f34c3d488, am_addr_t addr, message_t * msg, uint8_t len){
+inline static error_t /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$AMSend$send(am_id_t arg_0x2b1a99478488, am_addr_t addr, message_t * msg, uint8_t len){
 #line 80
   unsigned char __nesc_result;
 #line 80
 
 #line 80
-  __nesc_result = TossimActiveMessageC$AMSend$send(arg_0x2b5f34c3d488, addr, msg, len);
+  __nesc_result = TossimActiveMessageC$AMSend$send(arg_0x2b1a99478488, addr, msg, len);
 #line 80
 
 #line 80
@@ -11144,11 +11187,11 @@ static am_id_t TossimActiveMessageC$AMPacket$type(message_t *amsg)
   return __nesc_ntoh_uint8(header->type.nxdata);
 }
 
-# 98 "antC.nc"
+# 99 "antC.nc"
 static uint8_t antC$check_battery_change(void )
 {
   { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 100
+#line 101
     {
       if (antC$battery[sim_node()] >= 9000) 
         {
@@ -11157,36 +11200,36 @@ static uint8_t antC$check_battery_change(void )
               antC$battery_level[sim_node()] = 10;
               {
                 unsigned char __nesc_temp = 
-#line 106
+#line 107
                 2;
 
                 {
-#line 106
+#line 107
                   __nesc_atomic_end(__nesc_atomic); 
-#line 106
+#line 107
                   return __nesc_temp;
                 }
               }
             }
           else 
-#line 109
+#line 110
             {
               {
                 unsigned char __nesc_temp = 
-#line 110
+#line 111
                 1;
 
                 {
-#line 110
+#line 111
                   __nesc_atomic_end(__nesc_atomic); 
-#line 110
+#line 111
                   return __nesc_temp;
                 }
               }
             }
         }
       else {
-#line 113
+#line 114
         if (antC$battery[sim_node()] < 9000 && antC$battery[sim_node()] >= 8000) 
           {
             if (antC$battery_level[sim_node()] != 9) 
@@ -11194,36 +11237,36 @@ static uint8_t antC$check_battery_change(void )
                 antC$battery_level[sim_node()] = 9;
                 {
                   unsigned char __nesc_temp = 
-#line 118
+#line 119
                   2;
 
                   {
-#line 118
+#line 119
                     __nesc_atomic_end(__nesc_atomic); 
-#line 118
+#line 119
                     return __nesc_temp;
                   }
                 }
               }
             else 
-#line 121
+#line 122
               {
                 {
                   unsigned char __nesc_temp = 
-#line 122
+#line 123
                   1;
 
                   {
-#line 122
+#line 123
                     __nesc_atomic_end(__nesc_atomic); 
-#line 122
+#line 123
                     return __nesc_temp;
                   }
                 }
               }
           }
         else {
-#line 125
+#line 126
           if (antC$battery[sim_node()] < 8000 && antC$battery[sim_node()] >= 7000) 
             {
               if (antC$battery_level[sim_node()] != 8) 
@@ -11231,36 +11274,36 @@ static uint8_t antC$check_battery_change(void )
                   antC$battery_level[sim_node()] = 8;
                   {
                     unsigned char __nesc_temp = 
-#line 130
+#line 131
                     2;
 
                     {
-#line 130
+#line 131
                       __nesc_atomic_end(__nesc_atomic); 
-#line 130
+#line 131
                       return __nesc_temp;
                     }
                   }
                 }
               else 
-#line 133
+#line 134
                 {
                   {
                     unsigned char __nesc_temp = 
-#line 134
+#line 135
                     1;
 
                     {
-#line 134
+#line 135
                       __nesc_atomic_end(__nesc_atomic); 
-#line 134
+#line 135
                       return __nesc_temp;
                     }
                   }
                 }
             }
           else {
-#line 137
+#line 138
             if (antC$battery[sim_node()] < 7000 && antC$battery[sim_node()] >= 6000) 
               {
                 if (antC$battery_level[sim_node()] != 7) 
@@ -11268,36 +11311,36 @@ static uint8_t antC$check_battery_change(void )
                     antC$battery_level[sim_node()] = 7;
                     {
                       unsigned char __nesc_temp = 
-#line 142
+#line 143
                       2;
 
                       {
-#line 142
+#line 143
                         __nesc_atomic_end(__nesc_atomic); 
-#line 142
+#line 143
                         return __nesc_temp;
                       }
                     }
                   }
                 else 
-#line 145
+#line 146
                   {
                     {
                       unsigned char __nesc_temp = 
-#line 146
+#line 147
                       1;
 
                       {
-#line 146
+#line 147
                         __nesc_atomic_end(__nesc_atomic); 
-#line 146
+#line 147
                         return __nesc_temp;
                       }
                     }
                   }
               }
             else {
-#line 149
+#line 150
               if (antC$battery[sim_node()] < 6000 && antC$battery[sim_node()] >= 5000) 
                 {
                   if (antC$battery_level[sim_node()] != 6) 
@@ -11305,36 +11348,36 @@ static uint8_t antC$check_battery_change(void )
                       antC$battery_level[sim_node()] = 6;
                       {
                         unsigned char __nesc_temp = 
-#line 154
+#line 155
                         2;
 
                         {
-#line 154
+#line 155
                           __nesc_atomic_end(__nesc_atomic); 
-#line 154
+#line 155
                           return __nesc_temp;
                         }
                       }
                     }
                   else 
-#line 157
+#line 158
                     {
                       {
                         unsigned char __nesc_temp = 
-#line 158
+#line 159
                         1;
 
                         {
-#line 158
+#line 159
                           __nesc_atomic_end(__nesc_atomic); 
-#line 158
+#line 159
                           return __nesc_temp;
                         }
                       }
                     }
                 }
               else {
-#line 161
+#line 162
                 if (antC$battery[sim_node()] < 5000 && antC$battery[sim_node()] >= 4000) 
                   {
                     if (antC$battery_level[sim_node()] != 5) 
@@ -11342,36 +11385,36 @@ static uint8_t antC$check_battery_change(void )
                         antC$battery_level[sim_node()] = 5;
                         {
                           unsigned char __nesc_temp = 
-#line 166
+#line 167
                           2;
 
                           {
-#line 166
+#line 167
                             __nesc_atomic_end(__nesc_atomic); 
-#line 166
+#line 167
                             return __nesc_temp;
                           }
                         }
                       }
                     else 
-#line 169
+#line 170
                       {
                         {
                           unsigned char __nesc_temp = 
-#line 170
+#line 171
                           1;
 
                           {
-#line 170
+#line 171
                             __nesc_atomic_end(__nesc_atomic); 
-#line 170
+#line 171
                             return __nesc_temp;
                           }
                         }
                       }
                   }
                 else {
-#line 173
+#line 174
                   if (antC$battery[sim_node()] < 4000 && antC$battery[sim_node()] >= 3000) 
                     {
                       if (antC$battery_level[sim_node()] != 4) 
@@ -11381,32 +11424,32 @@ static uint8_t antC$check_battery_change(void )
                               antC$battery_level[sim_node()] = 4;
                               {
                                 unsigned char __nesc_temp = 
-#line 180
+#line 181
                                 2;
 
                                 {
-#line 180
+#line 181
                                   __nesc_atomic_end(__nesc_atomic); 
-#line 180
+#line 181
                                   return __nesc_temp;
                                 }
                               }
                             }
                           else {
-#line 182
+#line 183
                             if (antC$isrunning[sim_node()] == FALSE) 
                               {
                                 antC$battery_level[sim_node()] = 4;
                                 antC$isrunning[sim_node()] = TRUE;
                                 {
                                   unsigned char __nesc_temp = 
-#line 186
+#line 187
                                   4;
 
                                   {
-#line 186
+#line 187
                                     __nesc_atomic_end(__nesc_atomic); 
-#line 186
+#line 187
                                     return __nesc_temp;
                                   }
                                 }
@@ -11414,24 +11457,24 @@ static uint8_t antC$check_battery_change(void )
                             }
                         }
                       else 
-#line 190
+#line 191
                         {
                           {
                             unsigned char __nesc_temp = 
-#line 191
+#line 192
                             1;
 
                             {
-#line 191
+#line 192
                               __nesc_atomic_end(__nesc_atomic); 
-#line 191
+#line 192
                               return __nesc_temp;
                             }
                           }
                         }
                     }
                   else {
-#line 195
+#line 196
                     if (antC$battery[sim_node()] < 3000 && antC$battery[sim_node()] >= 2000) 
                       {
                         if (antC$battery_level[sim_node()] > 3) 
@@ -11439,47 +11482,47 @@ static uint8_t antC$check_battery_change(void )
                             antC$battery_level[sim_node()] = 3;
                             {
                               unsigned char __nesc_temp = 
-#line 200
+#line 201
                               2;
 
                               {
-#line 200
+#line 201
                                 __nesc_atomic_end(__nesc_atomic); 
-#line 200
+#line 201
                                 return __nesc_temp;
                               }
                             }
                           }
                         else {
-#line 202
+#line 203
                           if (antC$battery_level[sim_node()] == 2 && antC$isrunning[sim_node()] == FALSE) 
                             {
                               antC$battery_level[sim_node()] = 2;
                               {
                                 unsigned char __nesc_temp = 
-#line 205
+#line 206
                                 1;
 
                                 {
-#line 205
+#line 206
                                   __nesc_atomic_end(__nesc_atomic); 
-#line 205
+#line 206
                                   return __nesc_temp;
                                 }
                               }
                             }
                           else 
-#line 208
+#line 209
                             {
                               {
                                 unsigned char __nesc_temp = 
-#line 209
+#line 210
                                 1;
 
                                 {
-#line 209
+#line 210
                                   __nesc_atomic_end(__nesc_atomic); 
-#line 209
+#line 210
                                   return __nesc_temp;
                                 }
                               }
@@ -11487,7 +11530,7 @@ static uint8_t antC$check_battery_change(void )
                           }
                       }
                     else {
-#line 212
+#line 213
                       if (antC$battery[sim_node()] < 2000) 
                         {
                           if (antC$battery_level[sim_node()] > 2) 
@@ -11496,29 +11539,29 @@ static uint8_t antC$check_battery_change(void )
                               antC$isrunning[sim_node()] = FALSE;
                               {
                                 unsigned char __nesc_temp = 
-#line 218
+#line 219
                                 3;
 
                                 {
-#line 218
+#line 219
                                   __nesc_atomic_end(__nesc_atomic); 
-#line 218
+#line 219
                                   return __nesc_temp;
                                 }
                               }
                             }
                           else 
-#line 221
+#line 222
                             {
                               {
                                 unsigned char __nesc_temp = 
-#line 222
+#line 223
                                 1;
 
                                 {
-#line 222
+#line 223
                                   __nesc_atomic_end(__nesc_atomic); 
-#line 222
+#line 223
                                   return __nesc_temp;
                                 }
                               }
@@ -11533,18 +11576,18 @@ static uint8_t antC$check_battery_change(void )
           }
         }
     }
-#line 235
+#line 236
     __nesc_atomic_end(__nesc_atomic); }
 }
 
-#line 476
+#line 475
 static void antC$send_battery_info(void )
-#line 476
+#line 475
 {
 
   control_queue_entry_t *new_packet = (control_queue_entry_t *)malloc(sizeof(control_queue_entry_t ));
 
-#line 479
+#line 478
   new_packet->e_message = (energymessage_t *)malloc(sizeof(energymessage_t ));
   __nesc_hton_uint8(new_packet->e_message->energy.nxdata, antC$battery_level[sim_node()]);
   new_packet->f_message = (void *)0;
@@ -11554,12 +11597,12 @@ static void antC$send_battery_info(void )
     {
       if (antC$senddatatask$postTask() != SUCCESS) 
         {
-          sim_log_debug(174U, "Test1", "gg!\n");
+          sim_log_debug(173U, "Test1", "gg!\n");
         }
     }
   else 
     {
-      sim_log_debug(175U, "Test1", "shit!");
+      sim_log_debug(174U, "Test1", "shit!");
     }
 }
 
@@ -12155,6 +12198,36 @@ static void HplAtm128Timer0AsyncP$configure_compare(sim_event_t *evt)
   evt->time = compareTime;
 }
 
+# 150 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
+static am_addr_t TossimActiveMessageC$AMPacket$source(message_t *amsg)
+#line 150
+{
+  tossim_header_t *header = TossimActiveMessageC$getHeader(amsg);
+
+#line 152
+  return __nesc_ntoh_uint16(header->src.nxdata);
+}
+
+# 497 "antC.nc"
+static uint8_t antC$findinroutingtable(am_addr_t neighbor)
+{
+  uint8_t i;
+
+
+
+
+
+
+  for (i = 0; i < antC$tableactive[sim_node()]; i++) 
+    {
+      if (antC$routing_table[sim_node()][i].neighbor == neighbor) 
+        {
+          break;
+        }
+    }
+  return i;
+}
+
 # 85 "/opt/tinyos-2.1.2/tos/system/QueueC.nc"
 static /*antAppC.ReceiveQueueP*/QueueC$1$queue_t /*antAppC.ReceiveQueueP*/QueueC$1$Queue$dequeue(void )
 #line 85
@@ -12323,14 +12396,13 @@ static void /*AMQueueP.AMQueueImplP*/AMQueueImplP$0$tryToSend(void )
     }
 }
 
-# 734 "antC.nc"
+# 794 "antC.nc"
 static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
-#line 734
+#line 794
 {
-
   uint8_t k;
 
-#line 737
+#line 796
   if (antC$flag[sim_node()] == 3) 
     {
       if (&antC$pkt3[sim_node()] == msg) 
@@ -12343,12 +12415,12 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
             }
           antC$busy[sim_node()] = FALSE;
           { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 748
+#line 807
             {
               uint8_t k;
               uint8_t j = antC$post_fail[sim_node()];
 
-#line 751
+#line 810
               if (antC$post_fail[sim_node()] != 0) 
                 {
                   for (k = 1; k <= antC$post_fail[sim_node()]; k++) 
@@ -12361,13 +12433,13 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
                 }
               antC$post_fail[sim_node()] = j;
             }
-#line 762
+#line 821
             __nesc_atomic_end(__nesc_atomic); }
         }
       else 
         {
           antC$busy[sim_node()] = FALSE;
-          sim_log_debug(184U, "Test1", "send back ant error!\n");
+          sim_log_debug(187U, "Test1", "send back ant error!\n");
           antC$senddatatask$postTask();
         }
     }
@@ -12377,15 +12449,15 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
       if (&antC$pkt2[sim_node()] == msg) 
         {
 
-          if (TOS_NODE_ID == 0) 
-            {
-              sim_log_debug(185U, "Test1", "send forward ant %u\n", antC$forward_num[sim_node()]);
-            }
-          if (TOS_NODE_ID == 1 || TOS_NODE_ID == 2) 
-            {
-              antC$sendnum[sim_node()]++;
-              sim_log_debug(186U, "Test1", "NODE %u send %u\n", TOS_NODE_ID, antC$sendnum[sim_node()]);
-            }
+
+
+
+
+
+
+
+
+
           antC$SendQueue$dequeue();
           antC$battery[sim_node()] = antC$battery[sim_node()] - 5;
           if (antC$check_battery_change() != 1) 
@@ -12396,12 +12468,12 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
 
 
           { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 795
+#line 854
             {
               uint8_t k;
               uint8_t j = antC$post_fail[sim_node()];
 
-#line 798
+#line 857
               if (antC$post_fail[sim_node()] != 0) 
                 {
                   for (k = 1; k <= antC$post_fail[sim_node()]; k++) 
@@ -12414,10 +12486,10 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
                 }
               antC$post_fail[sim_node()] = j;
             }
-#line 809
+#line 868
             __nesc_atomic_end(__nesc_atomic); }
 
-          if (TOS_NODE_ID == 0) 
+          if (TOS_NODE_ID != DEST_NODE) 
             {
               antC$Timer1$startOneShot(1800);
             }
@@ -12426,7 +12498,7 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
         {
 
           antC$busy[sim_node()] = FALSE;
-          sim_log_debug(187U, "Test1", "send ant error!\n");
+          sim_log_debug(188U, "Test1", "send ant error!\n");
           antC$senddatatask$postTask();
         }
     }
@@ -12444,12 +12516,12 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
 
 
           { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 837
+#line 896
             {
               uint8_t k;
               uint8_t j = antC$post_fail[sim_node()];
 
-#line 840
+#line 899
               if (antC$post_fail[sim_node()] != 0) 
                 {
                   for (k = 1; k <= antC$post_fail[sim_node()]; k++) 
@@ -12462,7 +12534,7 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
                 }
               antC$post_fail[sim_node()] = j;
             }
-#line 851
+#line 910
             __nesc_atomic_end(__nesc_atomic); }
           if (antC$hellonum[sim_node()] < 5) 
             {
@@ -12475,7 +12547,7 @@ static void antC$BeaconSend$sendDone(message_t *msg, error_t error)
 
           antC$busy[sim_node()] = FALSE;
 
-          sim_log_debug(188U, "Test1", "send error!\n");
+          sim_log_debug(189U, "Test1", "send error!\n");
           antC$senddatatask$postTask();
         }
     }
